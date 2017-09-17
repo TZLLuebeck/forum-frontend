@@ -1,0 +1,7 @@
+nav.navbar.navbar-inverse(role="navigation")
+  .container-fluid
+    ul.nav.navbar-nav.navbar-right.clickable
+      li(ng-hide="nav.isAuthenticated")
+        a#navbar_a_login(ui-sref='root.login') Login
+      li(ng-show="nav.isAuthenticated")
+        a#navbar_a_logout(href='#', ng-click="nav.logout()") Logout

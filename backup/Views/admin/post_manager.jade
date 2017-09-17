@@ -1,0 +1,29 @@
+.container-fluid
+  ol.breadcrumb
+    li
+      a(ui-sref="root.home") Übersicht
+    li.active Posts
+  .well
+    table.table.table-bordered.table-striped
+      thead.text-center
+        tr
+          th.text-center Titel
+            label.label
+          th.text-center Zuständiger
+            label.label
+          th.text-center(colspan="2") &nbsp;
+      tbody
+        tr(ng-repeat="post in pmng.posts")
+          td.text-center {{post.title}}
+          td.text-center {{post.owner}}
+          td.text-center
+            button.btn.btn-default(
+              ng-click="pmng.getPost(post.id)") E
+            button.btn.btn-default(
+              ng-click="pmng.deletePost(post.id)") X
+      tbody
+        tr.text-center(ng-hide="pmng.finishedLoading")
+          td(colspan="6")
+            | Laden
+            br
+            i.fa.fa-refresh.fa-spin.fa-5x

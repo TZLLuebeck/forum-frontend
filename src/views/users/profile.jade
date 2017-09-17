@@ -1,0 +1,52 @@
+.container-fluid
+  ol.breadcrumb
+    li
+      a(ui-sref="root.admin.users") Übersicht
+    li.active Profil
+  .jumbotron.blue.text-white
+    h2#profile_title {{profile.user.email}}
+    p
+      | {{profile.user.firstname}} {{profile.user.lastname}}
+    p
+      | Ort: {{profile.user.plz}} {{profile.user.ort}}
+    p
+      | Web: {{profile.user.web}}  Fon: {{profile.user.fon}}
+
+    button.btn.btn-default(ng-show="profile.canEdit" ng-click="profile.editProfile()") Profil Bearbeiten
+  .panel-group.container-fluid.well(ng-show="profile.interestList.length")
+    .panel.panel-default
+      h2.panel-title
+        a(data-toggle="collapse" href="#postlist") 
+          h2.text-center.text-blue Interests
+    .panel-collapse.collapse.blue(id="postlist")
+      .row.well.well-sm(ng-repeat="post in profile.interestList")
+        .col-sm-6.col-sm-offset-3
+          .row
+            .text-center.text-blue
+              h3 {{post.title}}
+          .row(style="margin-top: 0")
+            .text-center
+              p Ich
+          .row
+            p {{post.description}}
+          .row
+            .col-sm-2.flex(ng-repeat="keyword in post.keywords")
+              .text-center
+                h6.label.label-primary {{keyword}}
+        .col-sm-3
+          .row
+            .text-center
+              p {{post.category}}
+          .row
+            .text-center
+              p {{post.subcategory}}
+          .row.text-center
+            button.btn.btn-warning.btn-lg(ng-click="profile.viewInterest(post.id)") Details ansehen
+
+
+
+      //ul.list-group
+        li.list-group-item(ng-repeat="post in profile.interestList")
+          a.clickable(ng-click="profile.viewInterest(post.id)") {{post.title}}
+
+

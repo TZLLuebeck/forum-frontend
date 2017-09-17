@@ -1,0 +1,29 @@
+.container-fluid
+  ol.breadcrumb
+    li
+      a(ui-sref="root.home") Home
+    li.active New Post
+  .col-sm-4.col-sm-offset-4
+    .panel.panel-default
+      .panel-heading
+        h3#registrations_title.panel-title New post
+      .panel-body
+        form(name="registrationForm", novalidate)
+          .form-group(ng-class="{ 'has-error' : registrationForm.name.$invalid && !registrationForm.name.$pristine }")
+            label.control-label Name
+            input#registrations_input_firstname.form-control(name="name", ng-minlength="2",
+              ng-model="npost.form.interest.title", required, maxlength="30")
+            p.help-block Name
+            label.control-label Beschreibung
+            input#registrations_input_firstname.form-control(name="ort", ng-minlength="2",
+              ng-model="npost.form.interest.description", required, maxlength="30")
+            p.help-block Beschreibung
+          hr
+          .form-group
+            .col-md-6
+              button#registrations_button_back.btn.btn-default(ui-sref="root.manage_users") Abbrechen
+            .col-md-6              
+              button#registrations_button_register.btn.btn-success(ng-click="npost.create_post()",
+                ng-disabled="registrationForm.$invalid || registration.regInProgress") Senden
+          .alert.alert-warning(ng-show="registration.regInProgress", role="alert")
+            | Registrierung im Vorgang

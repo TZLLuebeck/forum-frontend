@@ -1,0 +1,61 @@
+.container-fluid
+  ol.breadcrumb
+    li
+      a(ui-sref="root.interest") Interest
+    li.active Edit Post
+  .col-lg-10.col-lg-offset-1
+    .panel.panel-default
+      .panel-heading
+        h3#registrations_title.panel-title Edit post
+      .panel-body
+        form(name="editPostForm", novalidate)
+          label.control-label Ich
+          .form-group
+            label.radio-inline
+              input(name="offer" type="radio", ng-model="intedit.form.interest.offer", required, value="offer")
+              |  biete...
+            label.radio-inline
+              input(name="offer" type="radio", ng-model="intedit.form.interest.offer", required, value="search")
+              | suche...
+          label.control-label Typ
+          .form-group
+            label.radio-inline
+              input(name="type" type="radio", ng-model="intedit.form.interest.typus", required, value="Kooperation") 
+              | Kooperation
+            label.radio-inline
+              input(name="type" type="radio", ng-model="intedit.form.interest.typus", required, value="Informationsaustausch") 
+              | Informationsaustausch
+            label.radio-inline
+              input(name="type" type="radio", ng-model="intedit.form.interest.typus", required, value="Bachelor/Masterarbeit")
+              | Bachelor/Masterarbeit
+            label.radio-inline
+              input(name="type" type="radio", ng-model="intedit.form.interest.typus", required, value="Projekt")
+              | Projekt
+          label.control-label mit
+          .form-group
+            select.form-control(name="target", ng-model="intedit.form.interest.target", required)
+              option Firma
+              option Klinik
+              option Institut
+              option Student
+          label.control-label im Bereich
+          .form-group
+            label.control-label Kategorie
+              select.form-control(name="category", ng-model="intedit.category", ng-options="category as category.category for category in intedit.categories", ng-change="intedit.changeCategory()", required)
+            label.control-label Unterkategorie
+              select.form-control(ng-disabled="!(intedit.subcategories.length)", name="subcategory", ng-model="intedit.subcategory", ng-options="subcategory as subcategory.subcategory for subcategory in intedit.subcategories", ng-change="intedit.changeSubcategory()",required)
+          label.control-label Keywords 
+          .form-group
+            select.form-control(ng-model="intedit.form.interest.keywords", multiple, required, ng-options="keyword as keyword for keyword in intedit.keywords")
+          label.control-label Titel  
+          .form-group(ng-class="{ 'has-error' : editPostForm.title.$invalid && !editPostForm.title.$pristine }")  
+            input#interest_form_title.form-control(name="title", ng-minlength="2", ng-model="intedit.form.interest.title", required, maxlength="30")
+          label.control-label Beschreibung
+          .form-group(ng-class="{ 'has-error' : editPostForm.description.$invalid && !editPostForm.description.$pristine }")
+            textarea#interest_description.form-control(rows="5", cols ="60", name="description", ng-minlength="10", ng-model="intedit.form.interest.description", required, maxlength="300")
+          hr
+          .form-group
+            .col-md-6
+              button#registrations_button_back.btn.btn-default(ui-sref="root.profile") Abbrechen
+            .col-md-6              
+              button#registrations_button_register.btn.btn-success(ng-click="intedit.update()", ng-disabled="editPostForm.$invalid") Senden

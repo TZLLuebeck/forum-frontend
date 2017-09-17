@@ -1,0 +1,31 @@
+.navbar-inverse {
+  background-color: #4682b4;
+}
+
+.navbar li a,
+.navbar {
+  color: #ffffff !important;
+  background-color: #4682b4;
+}
+
+.navbar-nav li a:hover,
+.navbar-nav li.active a {
+  color: #eeeeee !important;
+  background-color: #4682b4;
+}
+
+.brand-image {
+  max-height: 200%;
+  margin-top: -10px;
+}
+
+.container-fluid>.navbar-collapse {
+  margin-right: -15px;
+}
+
+.navbar .divider-vertical {
+  height: 50px;
+  margin: 0 9px;
+  border-right: 1px solid #fff;
+  border-left: 1px solid #f2f2f2;
+}

@@ -1,0 +1,29 @@
+.container-fluid
+  ol.breadcrumb
+    li
+      a(ui-sref="root.home") Übersicht
+    li.active Posts
+  .well
+    table.table.table-bordered.table-striped
+      thead.text-center
+        tr
+          th.text-center Titel
+            label.label
+          th.text-center Zuständiger
+            label.label
+          th.text-center Kategorie
+          th.text-center Art
+          th.text-center Ziel
+          th.text-center(colspan="2") &nbsp;
+      tbody
+        tr(ng-repeat="post in interests.posts")
+          td.text-center.clickable.highlight(ng-click='interests.viewPost(post.id)') {{post.title}} 
+          td.text-center {{post.owner}}
+          td.text-center {{post.category}}
+          td.text-center {{post.typus}}
+          td.text-center {{post.target}}
+          td.text-center
+            button.btn.btn-default(
+              ng-click="interests.edit(post.id)") E
+            button.btn.btn-default(
+              ng-click="interests.deletePost(post)") X

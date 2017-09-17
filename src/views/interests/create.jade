@@ -1,0 +1,61 @@
+.container-fluid
+  ol.breadcrumb
+    li
+      a(ui-sref="root.home") Home
+    li.active New Post
+  .col-lg-10.col-lg-offset-1
+    .panel.panel-default
+      .panel-heading
+        h3#registrations_title.panel-title New post
+      .panel-body
+        form(name="newPostForm", novalidate)
+          label.control-label Ich
+          .form-group
+            label.radio-inline
+              input(name="offer" type="radio", ng-model="npost.form.interest.offer", required, value="offer")
+              |  biete...
+            label.radio-inline
+              input(name="offer" type="radio", ng-model="npost.form.interest.offer", required, value="search")
+              | suche...
+          label.control-label Typ
+          .form-group
+            label.radio-inline
+              input(name="type" type="radio", ng-model="npost.form.interest.typus", required, value="F\&E-Kooperation") 
+              | F&E-Kooperation
+            label.radio-inline
+              input(name="type" type="radio", ng-model="npost.form.interest.typus", required, value="Projektpartnerschaft") 
+              | Projektpartnerschaft
+            label.radio-inline
+              input(name="type" type="radio", ng-model="npost.form.interest.typus", required, value="Praktikum")
+              | Praktikum
+            label.radio-inline
+              input(name="type" type="radio", ng-model="npost.form.interest.typus", required, value="Bachelor/Masterarbeit")
+              | Bachelor/Masterarbeit
+          label.control-label mit
+          .form-group
+            select.form-control(name="target", ng-model="npost.form.interest.target", required)
+              option Firma
+              option Klinik
+              option Institut
+              option Student
+          label.control-label im Bereich
+          .form-group
+            label.control-label Kategorie
+              select.selectpicker.form-control(name="category", ng-model="npost.category", ng-options="category as category.category for category in npost.categories", ng-change="npost.changeCategory()", required)
+            label.control-label Unterkategorie
+              select.selectpicker.form-control(ng-disabled="!(npost.subcategories.length)", name="subcategory", ng-model="npost.subcategory", ng-options="subcategory as subcategory.subcategory for subcategory in npost.subcategories", ng-change="npost.changeSubcategory()",required)
+          label.control-label Keywords 
+          .form-group
+            select.selectpicker.form-control(ng-disabled="!(npost.keywords.length)", ng-model="npost.form.interest.keywords", ng-options="keyword as keyword for keyword in npost.keywords", multiple, required) 
+          label.control-label Titel  
+          .form-group(ng-class="{ 'has-error' : newPostForm.title.$invalid && !newPostForm.title.$pristine }")  
+            input#interest_form_title.form-control(name="title", ng-minlength="2", ng-model="npost.form.interest.title", required, maxlength="45")
+          label.control-label Beschreibung
+          .form-group(ng-class="{ 'has-error' : newPostForm.description.$invalid && !newPostForm.description.$pristine }")
+            textarea#interest_description.form-control(rows="5", cols ="60", name="description", ng-minlength="10", ng-model="npost.form.interest.description", required, maxlength="300")
+          hr
+          .form-group
+            .col-md-6
+              button#registrations_button_back.btn.btn-default(ui-sref="root.profile") Abbrechen
+            .col-md-6              
+              button#registrations_button_register.btn.btn-success(ng-click="npost.create_post()", ng-disabled="newPostForm.$invalid") Senden

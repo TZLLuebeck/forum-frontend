@@ -1,0 +1,19 @@
+.container
+  .row.well.well-sm(ng-repeat="company in cmps.companyList")
+    .col-sm-3
+      img.thumbnail(ng-src="{{company.logo.url}}" alt="logo" ng-show="company.logo", ng-cloak)
+    .col-sm-6
+      .row
+        .text-center.text-blue
+          h3 {{company.name}}
+      .row
+         p {{company.description}}
+    .col-sm-3
+      .row
+        .text-center
+          p {{company.category}}
+      //.row
+        .text-center
+          p {{post.subcategory}}
+      .row.text-center
+        button.btn.btn-warning.btn-lg(ng-click="cmps.viewCompany(cmps.id)") Details ansehen

@@ -1,0 +1,26 @@
+.container-fluid
+  ol.breadcrumb
+    li.active Übersicht
+  .well
+    table.table.table-bordered.table-striped
+      thead.text-center
+        tr
+          th.text-center Email
+            label.label
+          th.text-center Rolle
+            label.label
+          th.text-center Posts
+            label.label
+          th.text-center(colspan="2") &nbsp;
+      tbody
+        tr(ng-repeat="user in users.userList")
+          td.text-center.clickable.highlight(ng-click="users.getUser(user.id)") {{user.email}}
+          td.text-center {{user.roles.toString()}}
+          td.text-center {{user.posts}}
+          td.text-center
+            //button.btn.btn-default(
+              ng-click="users.editUser(user.id)") E
+            button.btn.btn-default(
+              ng-click="users.deleteUser(user)") X
+    button.btn.btn-default(
+              ui-sref="root.register") Neuer User

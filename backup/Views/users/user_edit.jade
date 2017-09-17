@@ -1,0 +1,26 @@
+.container-fluid
+  .col-sm-4.col-sm-offset-4
+    .panel.panel-default
+      .panel-heading
+        h3#registrations_title.panel-title Profil bearbeiten
+      .panel-body
+        form(name="editForm", novalidate)
+          .form-group(ng-class="{ 'has-error' : editForm.email.$invalid && !editForm.email.$pristine }")
+            label.control-label Email
+            input#registrations_input_firstname.form-control(name="email", ng-minlength="2",
+              ng-model="usred.form.user.email", required, maxlength="30")
+            p.help-block Email
+            label.control-label Ort
+            input#registrations_input_firstname.form-control(name="ort", ng-minlength="2",
+              ng-model="usred.form.user.ort", required, maxlength="30")
+            p.help-block Ort
+            label.control-label Plz
+            input#registrations_input_firstname.form-control(name="plz", ng-minlength="2",
+              ng-model="usred.form.user.plz", required, maxlength="30")
+            p.help-block Plz
+          .form-group
+            .col-md-6
+              button#registrations_button_back.btn.btn-default(ui-sref='root.manage_users') Abbrechen
+            .col-md-6              
+              button#registrations_button_register.btn.btn-success(ng-click="usred.update()",
+                ng-disabled="registrationForm.$invalid || usred.regInProgress") Speichern

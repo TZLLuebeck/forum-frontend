@@ -1,0 +1,37 @@
+.container-fluid
+  ol.breadcrumb
+    li
+      a(ui-sref="root.home") Übersicht
+    li.active Companies
+  .well
+    table.table.table-bordered.table-striped
+      thead.text-center
+        tr
+          th.text-center Name
+            label.label
+          th.text-center Beschreibung
+            label.label
+          th.text-center Posts
+            label.label
+          th.text-center(colspan="3") &nbsp;
+      tbody
+        tr(ng-repeat="cmp in companies.companyList")
+          td(ng-class="{'attention' : !cmp.validated}")
+            .text-center.clickable(ng-click='companies.viewCmp(cmp.id)')
+              p {{cmp.name}} 
+          td.text-center {{cmp.description}}
+          td.text-center 0
+          td.text-center
+            button.btn.btn-default(ng-hide="cmp.validated"
+              ng-click="companies.approveCompany(cmp)") A
+            button.btn.btn-default(
+              ng-click="companies.edit(cmp.id)") E
+            button.btn.btn-default(
+              ng-click="companies.deleteCompany(cmp)") X
+      tbody
+        tr.text-center(ng-hide="companies.finishedLoading")
+          td(colspan="6")
+            | Laden
+            br
+            i.fa.fa-refresh.fa-spin.fa-5x
+    button(ui-sref="root.companies.newcomp") Neue Organisation

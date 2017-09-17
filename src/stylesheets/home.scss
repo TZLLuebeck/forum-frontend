@@ -1,0 +1,56 @@
+.container-fluid .jumbotron {
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 0px;
+}
+
+.blue {
+  background-color: #007bb7;
+}
+
+.text-white {
+  color: #dddddd;
+}
+
+.text-blue {
+  color: #007bb7;
+}
+
+.no-gutter {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.no-gutter [class*='col-']:not(:first-child),
+.no-gutter [class*='col-']:not(:last-child) {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+
+.text-block {
+  text-align: justify;
+}
+
+.valign {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.carousel-control.left, .carousel-control.right {
+    background-image: none !important;
+}
+
+.label-distance {
+  margin-bottom: 3px;
+}

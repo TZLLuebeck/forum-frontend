@@ -1,0 +1,22 @@
+.container-fluid
+  ol.breadcrumb
+    li
+      a(ui-sref="root.manage_users") Übersicht
+    li.active Profil
+  .jumbotron
+    h2#profile_title {{prfl.user.email}}
+    p
+      | Ort: <b>{{prfl.user.plz}} {{prfl.user.ort}}</b>
+
+    button.btn.btn-default(ng-click="prfl.editProfile()") Profil Bearbeiten
+//h3 Access-Token
+  .well.well-sm {{profile.token.token}}
+    .row
+      .col-md-4
+        button#profile_button_token_refresh.btn.btn-primary.btn-block(type="button", 
+        ng-disabled="profile.tokenInProgress",
+        ng-click="profile.refreshToken()") {{'PRF_REFRTK' | translate}}
+      .col-md-4
+        button#profile_button_profile_edit.btn.btn-primary.btn-block(type="button", ui-sref="root.edit_profile({id: profile.user.id})") {{'PRF_EDIT' | translate}}
+      .col-md-4
+        button#profile_button_abos_edit.btn.btn-primary.btn-block(type="button", ui-sref="root.show_abos({id: profile.user.id})") {{'PRF_MEDIT' | translate}}

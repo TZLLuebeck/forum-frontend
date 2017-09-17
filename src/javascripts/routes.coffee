@@ -1,0 +1,359 @@
+angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $locationProvider) ->
+  console.log("Configuring Routes.")
+  $urlRouterProvider.otherwise ($injector) -> 
+    $state = $injector.get("$state");
+    $state.go('root.home');
+
+
+  $locationProvider.html5Mode(true)
+  $locationProvider.hashPrefix('')
+  
+  $stateProvider
+  .state 'root',
+    url: ''
+    abstract: true
+    views:
+      'header@':
+        templateUrl: 'assets/views/common/nav.html'
+        controller: 'NavCtrl'
+        controllerAs: 'nav'
+      'footer@':
+        templateUrl: 'assets/views/common/footer.html'
+    resolve:
+      identity: (TokenContainer, User, $rootScope) ->
+        if TokenContainer.get()
+          User.retrieveUser().then (user) ->
+            User.user = user
+            console.log('User Retrieved from Token')
+            $rootScope.$broadcast('user:stateChanged')
+
+  ############################
+  #
+  #   Common Routes   
+  #     Homepage
+  #     Search Page
+  #     Company Overview 
+  #
+  ############################
+
+  .state 'root.home',
+    url: '/'
+    views:
+      'body@':
+        templateUrl: 'assets/views/common/home.html'
+        controller: 'HomeCtrl'
+        controllerAs: 'home'
+
+  .state 'root.explore',
+    url: '/explore'
+    params:
+      category: null
+    views:
+      'body@':
+        templateUrl: 'assets/views/common/search.html'
+        controller: 'SearchCtrl'
+        controllerAs: 'search'
+    resolve:
+      category: ($stateParams, $state) ->
+        if $stateParams.category
+          return $stateParams.category
+
+      initials: (Interests, $stateParams, $state) ->
+        if not $stateParams.category
+          $state.go('root.home') 
+          return null
+        Interests.getByCategory($stateParams.category).then (response) =>
+          return response
+        , (error) ->
+          $state.go('root.home')
+
+  .state 'root.impressum',
+    url: '/impressum'
+    views:
+      'body@':
+        templateUrl: 'assets/views/common/impressum.html'
+  .state 'root.kontakt',
+    url: '/kontakt'
+    views:
+      'body@':
+        templateUrl: 'assets/views/common/kontakt.html'
+  .state 'root.agb',
+    url: '/nutzungsbedingungen'
+    views:
+      'body@':
+        templateUrl: 'assets/views/common/agb.html'
+  .state 'root.antimaas',
+    url: '/datenschutz'
+    views:
+      'body@':
+        templateUrl: 'assets/views/common/datenschutz.html'
+
+
+  ############################
+  #
+  #   User Routes
+  #     Registration
+  #     Login
+  #     View Profile
+  #       Edit Profile
+  #     ViewInterests
+  #       View Interest
+  #         Edit Interest
+  #
+  ############################
+
+  .state 'root.register',
+    url: '/registration'
+    views:
+      'body@':
+        templateUrl: 'assets/views/users/register.html'
+        controller: 'RegistrationCtrl'
+        controllerAs: 'reg'
+    resolve:
+      companies: (Company) =>
+        Company.getAll().then (response) ->
+          return response
+        , (error) ->
+          return error
+
+  .state 'root.login',
+    url: '/login'
+    views:
+      'body@':
+        templateUrl: 'assets/views/users/login.html'
+        controller: 'LoginCtrl'
+        controllerAs: 'login'
+
+  .state 'root.profile',
+    url: '/profile'
+    params:
+      id: null
+    views:
+      'body@':
+        templateUrl: 'assets/views/users/profile.html'
+        controller: 'ProfileCtrl'
+        controllerAs: 'profile'
+    resolve:
+      mydata: (User, $stateParams, $state) ->
+        User.getUserPacket($stateParams.id).then (response) -> 
+          return response.data
+        , (error) ->
+          $state.go('root.home')
+
+      posts: (User, $stateParams) ->
+        User.getInterests($stateParams.id).then (response) ->
+          return response.data
+        , (error) ->
+          return error
+
+  .state 'root.profile.edit',
+    url: '/edit'
+    params:
+      id: null
+    views:
+      'body@':
+        templateUrl: 'assets/views/users/edit.html'
+        controller: 'ProfileEditCtrl'
+        controllerAs: 'predit'
+    data:
+      permissions:
+        except: 'anonymous'
+        redirectTo: 'root.home'
+
+  ##################################
+  #
+  #   Interest Routes
+  #     Profile Interests
+  #     View Interest
+  #     Edit Interest
+  #
+  ##################################
+
+
+  .state 'root.profile.interests',
+    url: '/interests'
+    views:
+      'subbody@':
+        templateUrl: 'assets/views/interests/list.html'
+        controller: 'InterestsCtrl'
+        controllerAs: 'interests'
+
+  .state 'root.company.cmpinterests',
+    url: '/companies/view/interests'
+    params:
+      id: null
+    views:
+      'subbody@':
+        templateUrl: 'assets/views/interests/company.html'
+        controller: 'CompanyInterestCtrl'
+        controllerAs: 'cmpint'
+
+  .state 'root.interest',
+    url: ''
+    abstract: true
+    params:
+      id: null
+    views:
+      'body@':
+        templateUrl: 'assets/views/interests/view.html'
+        controller: 'InterestCtrl'
+        controllerAs: 'intrst'
+    resolve:
+      info: (Interests, $stateParams, Helper) ->
+        Interests.getInterest($stateParams.id).then (response) =>
+          return response.data
+        , (error) ->
+          Helper.goBack() unless error.status == 401
+
+  .state 'root.interest.hidden',
+    url: '/interest'
+    templateUrl: 'assets/views/interests/hidden.html'
+    controller: 'InterestHiddenCtrl'
+    controllerAs: 'ctrl'
+
+  .state 'root.interest.revealed',
+    url: '/interest/contact'
+    data:
+      permissions:
+        except: 'anonymous'
+        redirectTo: 'root.interest.hidden'
+    templateUrl: 'assets/views/interests/revealed.html'
+    controller: 'InterestRevealedCtrl'
+    controllerAs: 'ctrl'
+    resolve:
+      contact: (Interests, $stateParams) ->
+        Interests.makeContact($stateParams.id).then (response) =>
+          return response.data
+        , (error) ->
+          return error
+
+  .state 'root.interest.createinterest',
+    url: '/create'
+    views:
+      'body@':
+        templateUrl: 'assets/views/interests/create.html'
+        controller: 'NewPostCtrl'
+        controllerAs: 'npost'
+    data:
+      permissions:
+        except: 'anonymous'
+        redirectTo: 'root.register'
+
+  .state 'root.interest.editinterest',
+    url: '/edit'
+    params:
+      id: null
+    data:
+      permissions:
+        except: 'anonymous'
+        redirectTo: 'root.home'
+    views:
+      'body@':
+        templateUrl: 'assets/views/interests/edit.html'
+        controller: 'InterestEditCtrl'
+        controllerAs: 'intedit'
+
+  ##################################
+  #
+  #   Company Routes
+  #
+  #
+  #
+  #
+  ##################################
+
+  .state 'root.companies',
+    url: '/companies'
+    views:
+      'body@':
+        templateUrl: 'assets/views/companies/companies.html'
+        controller: 'CompaniesCtrl'
+        controllerAs: 'cmps'
+    resolve:
+      list: (Company) ->
+        Company.getApproved().then (result) ->
+          return result
+        , (error) ->
+          return []
+
+  .state 'root.companies.company',
+    url: '/view'
+    views:
+      'body@':
+        templateUrl: 'assets/views/companies/company.html'
+        controller: 'CompanyCtrl'
+        controllerAs: 'cmp'
+
+  .state 'root.companies.newcomp',
+    url: '/create'
+    data:
+      permissions:
+        only: 'admin'
+        redirectTo: 'root.home'
+    views:
+      'body@':
+        templateUrl: 'assets/views/companies/create.html'
+        controller: 'NewCompanyCtrl'
+        controllerAs: 'ncomp'
+
+  ##################################
+  #
+  #   Admin Routes
+  #     User List
+  #     Interest List
+  #     Company List
+  #     Statistics
+  #
+  ##################################
+
+  .state 'root.admin',
+    url: '/admin'
+    abstract: true
+    data:
+      permissions:
+        only: 'admin'
+        redirectTo: 'root.home'
+
+  .state 'root.admin.userlist',
+    url: '/users'
+    views:
+      'body@':
+        templateUrl: 'assets/views/admin/users.html'
+        controller: 'UserListCtrl'
+        controllerAs: 'users'
+    resolve:
+      users: (User) ->
+        User.getAll().then (response) ->
+          return response
+        , (error) ->
+          return error
+
+  .state 'root.admin.interestlist',
+    url: '/interests'
+    views:
+      'body@':
+        templateUrl: 'assets/views/admin/interests.html'
+        controller: 'InterestListCtrl'
+        controllerAs: 'interests'
+    resolve:
+      interest: (Interests) ->
+        Interests.getAll().then (response) ->
+          return response
+        , (error) ->
+          return error
+
+  .state 'root.admin.companylist',
+    url: '/companies'
+    views:
+      'body@':
+        templateUrl: 'assets/views/admin/companies.html'
+        controller: 'CompanyListCtrl'
+        controllerAs: 'companies'
+
+  .state 'root.admin.statistics',
+    url: '/statistics'
+    views:
+      'body@':
+        templateUrl: 'assets/views/admin/statistics.html'
+        controller: 'StatisticsCtrl'
+        controllerAs: 'stats'

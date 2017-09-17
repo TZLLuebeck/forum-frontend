@@ -1,0 +1,31 @@
+.container-fluid
+  ol.breadcrumb
+    li.active Übersicht
+  .well
+    table.table.table-bordered.table-striped
+      thead.text-center
+        tr
+          th.text-center Email
+            label.label
+          th.text-center Ort
+            label.label
+          th.text-center(colspan="2") &nbsp;
+      tbody
+        tr(ng-repeat="user in mng.userList")
+          td.text-center {{user.email}}
+          td.text-center {{user.ort}}
+          td.text-center
+            button.btn.btn-default(
+              ng-click="mng.getUser(user.id)") E
+            button.btn.btn-default(
+              ng-click="mng.deleteUser(user.id)") X
+      tbody
+        tr.text-center(ng-hide="mng.finishedLoading")
+          td(colspan="6")
+            | Laden
+            br
+            i.fa.fa-refresh.fa-spin.fa-5x
+    button.btn.btn-default(
+              ui-sref="root.register") Neuer User
+    button.btn.btn-default(
+              ui-sref="root.createpost") Neuer Post
