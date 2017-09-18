@@ -11,6 +11,8 @@ angular.module('mediMeet').controller 'InterestEditCtrl', (Interests, $state, $s
   @form = interest: {}
   @rest = {}
 
+  @reason = ""
+
   @init = =>
     Interests.getInterest($stateParams.id).then(@postReceived, () -> 
       $state.go('root.admin.users')
@@ -51,6 +53,12 @@ angular.module('mediMeet').controller 'InterestEditCtrl', (Interests, $state, $s
 
   @abort = ->
     Helper.goBack()
+
+  @deleteInterest = () ->
+    Interests.deleteInterest(@form.interest.id).then () ->
+      $state.go('root.profile')
+    , (error) ->
+      
 
   @init()
 

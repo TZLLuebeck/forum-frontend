@@ -11,16 +11,15 @@
             label.label
           th.text-center Posts
             label.label
-          th.text-center(colspan="2") &nbsp;
+          th.text-center(colspan="2") 
+            button.btn.btn-warning(ng-class="{active: users.unlocked}" ng-click="users.unlocked = !users.unlocked") Entsperren
       tbody
         tr(ng-repeat="user in users.userList")
           td.text-center.clickable.highlight(ng-click="users.getUser(user.id)") {{user.email}}
           td.text-center {{user.roles.toString()}}
           td.text-center {{user.posts}}
           td.text-center
-            //button.btn.btn-default(
-              ng-click="users.editUser(user.id)") E
-            button.btn.btn-default(
-              ng-click="users.deleteUser(user)") X
+            button.btn.btn-default(ng-click="users.editUser(user.id)") E
+            button.btn.btn-danger(ng-disabled="!users.unlocked", ng-click="users.deleteUser(user)") X
     button.btn.btn-default(
               ui-sref="root.register") Neuer User

@@ -1,8 +1,11 @@
 .row.text-white.text-center
   h2 {{ctrl.user.firstname}} {{ctrl.user.lastname}}
+  h3 {{ctrl.user.cmp}} ({{ctrl.user.cmpt}})
 .row.text-white.text-center
   h3 Kontakt
   .row.text-white
-    h5 {{ctrl.user.email}}
-    h5 {{ctrl.user.web}}
+    h5
+      a(href="mailto:{{ctrl.user.email}}", style="color:white") {{ctrl.user.email}}
+    h5
+      a(href="http://{{ctrl.user.web}}", style="color:white") {{ctrl.user.web}}
     h5 {{ctrl.user.fon}}

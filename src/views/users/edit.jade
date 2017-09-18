@@ -50,4 +50,15 @@
               button#useredit_button_register.btn.btn-success(ng-click="predit.update()",
                 ng-disabled="usereditForm.$invalid || predit.regInProgress") Speichern
             .cold-md-4
-              button#useredit_button_delete.btn.btn-warning()
+              button#useredit_button_delete.btn.btn-warning(data-toggle="modal", data-target="#profileedit_delete") Account Löschen
+  .modal.fade#profileedit_delete
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h3.modal-title Account Löschen
+          button.close(type="button", data-dismiss="modal") &times;
+        .modal-body
+          p Sind Sie sich sicher, dass Sie Ihren Account löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden. Jede von Ihnen gestellte Anzeige wird ebenfalls gelöscht.
+          .modal-footer
+            button.btn.btn-danger(type="button", data-dismiss="modal", ng-click="predit.deleteAccount()") Löschen
+            button.btn.btn-default(type="button", data-dismiss="modal") Behalten

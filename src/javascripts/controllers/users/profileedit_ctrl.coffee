@@ -23,11 +23,18 @@ angular.module('mediMeet').controller 'ProfileEditCtrl', ($stateParams, $state, 
       $state.go('root.profile', {id: $stateParams.id})
     , (error) =>
       @regInProgress = false
-      console.log(error)
 
   @abort = ->
-    console.log("Aborting")
     Helper.goBack()
+
+  @deleteAccount = ->
+    User.deleteUser(@form.user.id).then () ->
+      $state.go('root.home')
+      User.unauthorized = true
+      TokenContainer.delete()
+      $rootScope.$broadcast('user:stateChanged')
+    , (error) ->
+
 
   @init()
 

@@ -26,7 +26,7 @@ angular.module('mediMeet').controller 'NavCtrl', ($timeout, $scope, mediREST, Us
     , (error) ->
       if error.status == 404
         toaster.pop('error', "Nicht vorhanden.", "Es wurde kein Account mit diesem Accountnamen gefunden.");
-      if error.status == 401 && error.error == 'wrong_password'
+      if error.status == 401 && error.data.error == 'wrong_password'
         toaster.pop('error', "Falsches Passwort", "Das eingegebene Passwort war falsch.");
   @setUsername = () =>
     console.log(@isAuthenticated)

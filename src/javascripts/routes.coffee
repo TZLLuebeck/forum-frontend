@@ -27,6 +27,16 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
             console.log('User Retrieved from Token')
             $rootScope.$broadcast('user:stateChanged')
 
+  .state 'match',
+    url: '/match/{id}'
+    onEnter: ($state, $stateParams) -> 
+      console.log($stateParams.id)
+      $state.go('root.interest.hidden', {id: $stateParams.id})
+    #resolve: 
+    #  direct: ($stateParams, $state) ->
+    #    $state.go('root.home') unless $stateParams.id
+    #    $state.go('root.interest.hidden', {id: $stateParams.id})
+
   ############################
   #
   #   Common Routes   
@@ -87,7 +97,6 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     views:
       'body@':
         templateUrl: 'assets/views/common/datenschutz.html'
-
 
   ############################
   #

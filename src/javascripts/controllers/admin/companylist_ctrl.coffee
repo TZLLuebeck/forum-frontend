@@ -1,5 +1,7 @@
 angular.module('mediMeet').controller 'CompanyListCtrl', ($state, Company, $scope) ->
 
+  @unlocked = false
+
   @resetSettings = =>
     @finishedLoading = false
     @companyList = []

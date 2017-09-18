@@ -13,7 +13,8 @@
             label.label
           th.text-center Posts
             label.label
-          th.text-center(colspan="3") &nbsp;
+          th.text-center(colspan="3")
+            button.btn.btn-warning(ng-class="{active: companies.unlocked}" ng-click="companies.unlocked = !companies.unlocked") Entsperren
       tbody
         tr(ng-repeat="cmp in companies.companyList")
           td(ng-class="{'attention' : !cmp.validated}")
@@ -22,12 +23,9 @@
           td.text-center {{cmp.description}}
           td.text-center 0
           td.text-center
-            button.btn.btn-default(ng-hide="cmp.validated"
-              ng-click="companies.approveCompany(cmp)") A
-            button.btn.btn-default(
-              ng-click="companies.edit(cmp.id)") E
-            button.btn.btn-default(
-              ng-click="companies.deleteCompany(cmp)") X
+            button.btn.btn-success(ng-hide="cmp.validated", ng-click="companies.approveCompany(cmp)") A
+            button.btn.btn-default(ng-click="companies.edit(cmp.id)") E
+            button.btn.btn-danger(ng-disabled="!companies.unlocked" ng-click="companies.deleteCompany(cmp)") X
       tbody
         tr.text-center(ng-hide="companies.finishedLoading")
           td(colspan="6")
