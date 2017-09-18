@@ -1,4 +1,4 @@
-angular.module('mediMeet').controller 'InterestCtrl', (info, $scope, User) ->
+angular.module('mediMeet').controller 'InterestCtrl', (info, $scope, User, $state) ->
 
   @interest = info
 
@@ -7,6 +7,9 @@ angular.module('mediMeet').controller 'InterestCtrl', (info, $scope, User) ->
       $scope.myint = true
     else
       $scope.myint = false
+
+  @back = =>
+  	$state.go('root.explore', {category: @interest.category})
 
   @init()
 

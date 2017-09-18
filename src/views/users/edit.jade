@@ -44,8 +44,10 @@
               input#useredit_input_password.form-control(name="password", type="password", ng-minlength="8",
                 ng-model="predit.form.user.current_password", required)
           .form-group
-            .col-md-6
+            .col-md-4
               button#useredit_button_back.btn.btn-default(ng-click="predit.abort()") Abbrechen
-            .col-md-6
+            .col-md-4
               button#useredit_button_register.btn.btn-success(ng-click="predit.update()",
                 ng-disabled="usereditForm.$invalid || predit.regInProgress") Speichern
+            .cold-md-4
+              button#useredit_button_delete.btn.btn-warning()

@@ -5,6 +5,16 @@
         h3#newcomp_title.panel-title Neue Organisation
       .panel-body
         form(name="newCompForm", novalidate, enctype="multipart/form-data")
+          .form-group
+            label.radio-inline
+              input(name="type" type="radio", ng-model="ncomp.form.company.typus", value="Klinik") 
+              | Klinik
+            label.radio-inline
+              input(name="type" type="radio", ng-model="ncomp.form.company.typus", value="Institut") 
+              | Institut
+            label.radio-inline
+              input(name="type" type="radio", ng-model="ncomp.form.company.typus", value="Firma")
+              | Firma
           label.control-label Name
           .form-group
             input#newcomp_input_username.form-control(name="name", ng-minlength="4",

@@ -1,4 +1,4 @@
-angular.module('mediMeet').controller 'NavCtrl', ($timeout, $scope, mediREST, User, TokenContainer, $state, $rootScope) -> 
+angular.module('mediMeet').controller 'NavCtrl', ($timeout, $scope, mediREST, User, TokenContainer, $state, $rootScope, toaster) -> 
 
   @form = {}
 
@@ -25,8 +25,9 @@ angular.module('mediMeet').controller 'NavCtrl', ($timeout, $scope, mediREST, Us
       $rootScope.$broadcast('user:stateChanged')
     , (error) ->
       if error.status == 404
-        console.log("Account doesn't exist.")
-
+        toaster.pop('error', "Nicht vorhanden.", "Es wurde kein Account mit diesem Accountnamen gefunden.");
+      if error.status == 401 && error.error == 'wrong_password'
+        toaster.pop('error', "Falsches Passwort", "Das eingegebene Passwort war falsch.");
   @setUsername = () =>
     console.log(@isAuthenticated)
     if @isAuthenticated

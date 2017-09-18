@@ -1,21 +1,17 @@
 .container-fluid(tooltips)
-  ol.breadcrumb
-    li
-      a(ui-sref="root.home") Home
-    li.active Registrierung
   .col-md-6.col-md-offset-3
     .panel.panel-default
       .panel-heading
-        h3#registrations_title.panel-title Registrierung
+        h1.text-blue#registrations_title.panel-title Registrierung
       .panel-body
-        label.control-label.h3 Accountdaten
-        form(name="registrationForm", novalidate)
+        label.control-label.h3.text-blue Accountdaten
+        form(name="registrationForm", novalidate, enctype="multipart/form-data")
           .form-group(ng-class="{ 'has-error' : reg.errors.username }")
             label.control-label Accountname *
               input#registrations_input_username.form-control(name="username", ng-minlength="4",
                 ng-model="reg.form.user.username", data-toggle="tooltip" title="Mit ihrem Accountnamen können Sie sich später einloggen.", data-placement="left")
           .form-group(ng-class="{'has-error' : reg.errors.password || reg.errors.password_confirmation }")
-            label.control-label Passwort *
+            label.control-label(style="margin-right: 10px;") Passwort *
               input#registrations_input_password.form-control(name="password", type="password", ng-minlength="8",
                 ng-model="reg.form.user.password" data-toggle="tooltip" title="Ihr Password sollte zwischen 8 und 30 Zeichen lang sein.", data-placement="left")
             label.control-label Passwort bestätigen *
@@ -40,17 +36,22 @@
               input(name="type" type="radio", ng-model="reg.form.user.typus", value="Student")
               | Student
           .form-group(ng-class="{'has-error' : reg.errors.company }")
-            select(name="company" ng-model="reg.form.contact_data.company_id" ng-options="company.id as company.name for company in reg.companies" ng-show="reg.form.user.typus == 'Firma'")
-          label.control-label.h3(ng-hide="reg.form.user.typus == 'Student'") Kontaktdaten
+            select(name="company" ng-model="reg.form.contact_data.company_id" ng-options="company.id as company.name for company in reg.companies | filter: {'typus': reg.form.user.typus} | orderBy: 'name'" ng-show="reg.form.user.typus == 'Institut' || reg.form.user.typus == 'Klinik' || reg.form.user.typus == 'Firma'", ng-change="console.log(reg.form.contact_data.company_id)")
+              option.text-center(value='', selected) {{reg.form.user.typus}} hinzufügen.
+          label.control-label.h3.text-blue(ng-hide="reg.form.user.typus == 'Student'") Kontaktdaten
           .form-group(ng-class="{'has-error' : reg.errors.firstname || reg.errors.lastname}" ng-hide="reg.form.user.typus == 'Student'")
-            label.control-label Vorname *
+            label.control-label(style="margin-right: 10px;") Vorname *
               input#registrations_input_firstname.form-control(name="lastname",
                 ng-model="reg.form.contact_data.firstname")
             label.control-label Nachname *
               input#registrations_input_lastname.form-control(name="lastname",
                 ng-model="reg.form.contact_data.lastname")
+          .form-group(ng-class="{'has-error' : reg.errors.company.name }" ng-hide="reg.form.user.typus == 'Student' || reg.form.contact_data.company_id")
+            label.control-label Organisationsname *
+              input#registrations_input_companyname.form-control(name="companyname",
+                ng-model="reg.form.company.name")
           .form-group(ng-class="{'has-error' : reg.errors.plz || reg.errors.ort }" ng-hide="reg.form.user.typus == 'Student'")
-            label.control-label Postleitzahl *
+            label.control-label(style="margin-right: 10px;") Postleitzahl *
               input#registrations_input_plz.form-control(name="plz", ng-minlength="5",
                 ng-model="reg.form.contact_data.plz", maxlength="5")
             label.control-label Ort *
@@ -63,7 +64,14 @@
           .form-group(ng-class="{'has-error' : reg.errors.fon }" ng-hide="reg.form.user.typus == 'Student'")
             label.control-label Telefonnummer *
               input#registrations_input_fon.form-control(name="fon", ng-minlength="5",
-                ng-model="reg.contact_data.user.fon")
+                ng-model="reg.form.contact_data.fon")
+          .form-group(ng-class="{'has-error' : reg.errors.company.description }" ng-hide="reg.form.user.typus == 'Student' || reg.form.contact_data.company_id")
+            label.control-label Kurzbeschreibung d. Organisation *
+              textarea#registrations_input_companydesc.form-control(name="comapnydescription",
+                ng-model="reg.form.company.description", maxlength="300")
+          .form-group(ng-class="{'has-error' : registrationForm.logo.$invalid }" ng-hide="reg.form.user.typus == 'Student' || reg.form.contact_data.company_id")
+            label.control-label Firmenlogo
+              input(type="file", ngf-select, ng-model="reg.form.company.logo" name="logo" accept="image/*" ngf-max-size="2MB" ngf-max-height="300" ngf-max-width="350")
           b * = Pflichtfeld
           hr
           .form-group
@@ -71,6 +79,8 @@
             b
               span  Ich habe die 
               a.clickable(data-toggle="modal", data-target="#registrations_modal_agb") Nutzungsbedingungen
+              span  und die 
+              a.clickable(data-toggle="modal", data-target="#registrations_modal_datenschutz") Datenschutzerklärung
               span  gelesen und akzeptiere sie.
           .form-group
             .col-md-6
@@ -100,5 +110,25 @@
             li.h4.text-blue §4 Gerichtsstand
             p Es gilt das Recht der Bundesrepublik Deutschland. Ausschließlicher Erfüllungs- und Gerichtsort ist Lübeck. 
           p Diese Nutzungsbedingungen können jederzeit ohne einen Hinweis verändert werden.
+          .modal-footer
+            button.btn.btn-default(type="button", data-dismiss="modal") Schließen
+  .modal.fade#registrations_modal_datenschutz
+    .modal-dialog
+      .modal-content
+        .modal-body
+          button.close(type="button", data-dismiss="modal") &times;
+          h2.text-blue.text-center Datenschutzerklärung
+          p.text-left Den Schutz Ihrer persönlichen Daten nehmen wir ernst, auch anlässlich Ihres Besuches auf unserer Homepage. Ihre Daten werden so geschützt, wie es die gesetzlichen Vorschriften, insbesondere das neue Telemediengesetz vorsehen. Nachfolgend finden Sie Informationen, welche Daten während Ihres Besuches auf der Homepage erfasst und wie diese genutzt werden:
+          ol
+            li.h4.text-blue Gespeicherte Daten
+            p Unvermeidlich ist, dass in den Serverstatistiken automatisch solche Daten gespeichert werden, die Ihr Browser uns übermittelt. Diese Speicherung dient lediglich internen systembezogenen und statistischen Zwecken. Weitergehende personenbezogene Daten werden nur erfasst, wenn Sie diese Angaben freiwillig, etwa im Rahmen einer Anfrage und der Registrierung, machen. Die oben genannten Daten sind für uns in der Regel nicht bestimmten Personen zuordenbar, eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen.
+            li.h4.text-blue Nutung und Weitergabe personenbezogener Daten
+            p Jegliche Nutzung Ihrer personenbezogenen Daten erfolgt nur zu den genannten Zwecken und in dem zur Erreichung dieser Zwecke erforderlichen Umfang. Ihre personenbezogenen Daten werden an Dritte nur weitergegeben oder sonst übermittelt, wenn dies zum Zwecke der Vertragsabwicklung oder der Abrechnung erforderlich ist oder Sie zuvor eingewilligt haben. Eine Weitergabe zu Werbezwecken an hier nicht genannte Dritte erfolgt in keinem Fall.
+            li.h4.text-blue Einwillingung in weitergehende Nutzung
+            p Damit Sie die Angebote auf unserer Webseite wie etwa Kontaktaufnahme, Newsletter oder Angebotserstellung nutzen können, muss eine vorherige Registrierung und eine weitergehende Verarbeitung personenbezogener Daten erfolgen, zum Beispiel eine Speicherung der E-Mail-Adresse und des Passworts.  Die Verwendung solcher Daten erfolgt nur, wenn Sie uns diese übermittelt oder Sie uns zur Verfügung gestellt haben. Die Löschung der gespeicherten personenbezogenen Daten erfolgt, wenn Sie Ihre Einwilligung zur Speicherung widerrufen, wenn ihre Kenntnis zur Erfüllung des mit der Speicherung verfolgten Zwecks nicht mehr erforderlich ist oder wenn ihre Speicherung aus sonstigen gesetzlichen Gründen unzulässig ist.
+            li.h4.text-blue Newsletter/Suchauftrag
+            p Um den Newsletter-Dienst/ Suchauftrag für neue Angebote zu nutzten, müssen Sie auf unserer Webseite ein Profil anlegen und sich damit registrieren. Sie können den abonnierten Newsletter jederzeit abbestellen indem Sie uns eine E-Mail über die entsprechende Webseite des Dienstes zusenden.
+            li.h4.text-blue Auskunftsrecht und Kontaktdaten
+            p Gern geben wir Ihnen Auskunft über die bei uns gespeicherten persönlichen Daten. Wenn Sie Fragen zur Behandlung Ihrer Daten haben, deren Korrektur oder Löschung wünschen, genügt eine E-Mail.
           .modal-footer
             button.btn.btn-default(type="button", data-dismiss="modal") Schließen

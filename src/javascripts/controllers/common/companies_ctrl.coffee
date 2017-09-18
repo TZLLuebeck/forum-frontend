@@ -1,6 +1,8 @@
-angular.module('mediMeet').controller 'CompaniesCtrl', (Company, list) ->
+angular.module('mediMeet').controller 'CompaniesCtrl', (Company, list, $state) ->
 
   @companyList = list
-  console.log(@companyList)
+
+  @viewCompany = (id) =>
+  	$state.go('root.companies.company', {id: id})
 
   this

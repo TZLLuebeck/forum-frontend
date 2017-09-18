@@ -22,8 +22,8 @@ angular.module('mediMeet').controller 'ProfileCtrl', (User, $state, $stateParams
   @gotInterests = (interests) =>
     @interestList = angular.copy(interests.data)
 
-  @viewInterest = (id) =>
-    $state.go('root.interest.hidden', {id: id})
+  @editInterest = (id) =>
+    $state.go('root.interest.editinterest', {id: id})
   
   @init()          
   

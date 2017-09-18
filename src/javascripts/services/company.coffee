@@ -3,7 +3,7 @@ angular.module('mediMeet').service 'Company', (mediREST, $q, Upload, Rails) ->
   createCompany = (company) ->
     defer = $q.defer()
     Upload.upload({
-      url: "#{Rails.host}"+'/api/v1/companies/'
+      url: '/api/v1/companies/'
       data: {data: company}
       }).then (response) =>
       defer.resolve(response.data)

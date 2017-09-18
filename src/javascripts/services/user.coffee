@@ -12,7 +12,7 @@ angular.module('mediMeet').service 'User', (mediREST, $q, $http, Rails, $rootSco
     users.post().then (response) ->
       defer.resolve(response.data)
     , (error) ->
-      defer.reject(response.data)
+      defer.reject(error.data.error)
     defer.promise
 
   # READ
@@ -35,7 +35,7 @@ angular.module('mediMeet').service 'User', (mediREST, $q, $http, Rails, $rootSco
     packet.get().then (response) ->
       defer.resolve(response.data)
     , (error) ->
-      defer.reject(response.error)
+      defer.reject(error.error)
     defer.promise
 
   getUserPacket = (id) ->
@@ -48,7 +48,7 @@ angular.module('mediMeet').service 'User', (mediREST, $q, $http, Rails, $rootSco
     packet.get().then (response) ->
       defer.resolve(response)
     , (error) ->
-      defer.reject(response)
+      defer.reject(error)
     defer.promise
 
   retrieveUser = =>

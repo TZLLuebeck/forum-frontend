@@ -1,4 +1,10 @@
-.container-fluid.well
+.container-fluid
+  ol.breadcrumb
+    li
+      a.clickable(ui-sref="root.home") Home
+    li
+      a.clickable(ng-click="intrst.back()") {{intrst.interest.category}}
+    li.active {{intrst.interest.title}}
   .row
     .col-sm-8
       .row

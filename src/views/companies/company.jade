@@ -1,0 +1,43 @@
+.container-fluid
+  ol.breadcrumb
+    li
+      a.clickable(ui-sref="root.home") Home
+    li
+      a.clickable(ui-sref="root.companies") Organisationen
+    li.active {{cmp.company.name}}
+  .row
+    .col-sm-4
+      img(ng-src="cmp.company.logo.url", ng-hide="!cmp.company.logo.url", ngCloak)
+    .col-sm-5  
+      p.h2.text-blue
+        b {{cmp.company.name}}
+      p {{cmp.company.website}}
+    .col-sm-3
+      button.btn.btn-success(href="cmp.company.website") Zur Webseite
+  hr
+  .row
+    h3.text-blue Firmenbeschreibung
+  .row
+    p {{cmp.company.description}}
+  hr
+  .row.well.well-sm(ng-repeat="post in cmp.company.posts")
+    .col-sm-8.col-sm-offset-1
+      .row
+        .text-blue.h2
+          b
+            u {{post.title}}
+      .row
+         p {{post.description}}
+      .row
+        .col-sm-2.flex(ng-repeat="keyword in post.keywords")
+          .text-center
+            h6.label.label-primary {{keyword}}
+    .col-sm-3
+      .row
+        .text-center.h4.text-blue
+          b {{post.category}}
+      .row(style="margin-bottom: 20px;")
+        .text-center.text-blue
+          b {{post.subcategory}}
+      .row.text-center
+        button.btn.btn-warning.btn-lg(ng-click="cmp.viewInterest(post.id)") Details ansehen

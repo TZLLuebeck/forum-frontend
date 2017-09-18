@@ -283,6 +283,16 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
         templateUrl: 'assets/views/companies/company.html'
         controller: 'CompanyCtrl'
         controllerAs: 'cmp'
+    params:
+      id: null
+    resolve:
+      comp: (Company, Helper, $stateParams) ->
+        Helper.goBack() unless $stateParams.id
+        Company.getOne($stateParams.id).then (result) ->
+          return result.data
+        , (error) ->
+          console.log(error)
+          Helper.goBack()
 
   .state 'root.companies.newcomp',
     url: '/create'

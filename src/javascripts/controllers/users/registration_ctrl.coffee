@@ -4,6 +4,7 @@ angular.module('mediMeet').controller 'RegistrationCtrl', (TokenContainer, User,
   @form = {
     user: {}
     contact_data: {}
+    company: {}
   }
   @regInProgress = false
   @errors = {}
@@ -15,11 +16,18 @@ angular.module('mediMeet').controller 'RegistrationCtrl', (TokenContainer, User,
   @register = =>
     if @validate()
       @regInProgress = true
-      @form.user.contact_data = @form.contact_data unless @form.user.typus == 'Student'
+      if @form.user.typus != 'Student'
+        @form.user.contact_data = @form.contact_data
+        if !@form.contact_data.company_id
+          delete @form.contact_data.company_id
+          @form.company.typus = @form.user.typus
+          @form.company.web = @form.user.web
+          @form.user.company = @form.company
       User.registerUser(@form.user).then (results) =>
         @regInProgress = false
         User.user = results.user
         TokenContainer.set(results.token)
+        User.unauthorized = false
         $rootScope.$broadcast('user:stateChanged')
         $state.go('root.interest.createinterest')
       , (error) =>
@@ -36,6 +44,7 @@ angular.module('mediMeet').controller 'RegistrationCtrl', (TokenContainer, User,
     @errors = {}
     u = @form.user
     c = @form.contact_data
+    cp = @form.company
     unless u.typus
       @errors.typus = true
       valid = false
@@ -63,9 +72,12 @@ angular.module('mediMeet').controller 'RegistrationCtrl', (TokenContainer, User,
           @errors.web = true
           @errors.fon = true
         valid = false
-      if u.typus == "Firma"
-        unless c.company_id
-          @errors.company = true
+      unless c.company_id
+        unless cp.name
+          @errors.company.name = true
+          valid = false
+        unless cp.description
+          @errors.company.description = true
           valid = false
     return valid
   this
