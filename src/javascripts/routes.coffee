@@ -208,11 +208,11 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
         controller: 'InterestCtrl'
         controllerAs: 'intrst'
     resolve:
-      info: (Interests, $stateParams, Helper) ->
+      info: (Interests, $stateParams, $state) ->
         Interests.getInterest($stateParams.id).then (response) =>
           return response.data
         , (error) ->
-          Helper.goBack() unless error.status == 401
+          $state.go('root.home') unless error.status == 401
 
   .state 'root.interest.hidden',
     url: '/interest'
@@ -295,13 +295,12 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     params:
       id: null
     resolve:
-      comp: (Company, Helper, $stateParams) ->
-        Helper.goBack() unless $stateParams.id
+      comp: (Company, $state, $stateParams) ->
+        $state.go('root.companies') unless $stateParams.id
         Company.getOne($stateParams.id).then (result) ->
           return result.data
         , (error) ->
-          console.log(error)
-          Helper.goBack()
+          $state.go('root.companies')
 
   .state 'root.companies.newcomp',
     url: '/create'
@@ -314,6 +313,27 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
         templateUrl: 'assets/views/companies/create.html'
         controller: 'NewCompanyCtrl'
         controllerAs: 'ncomp'
+
+  .state 'root.companies.editcomp',
+    url: '/edit'
+    data:
+      permissions:
+        except: 'anonymous'
+        redirectTo: 'root.home'
+    views:
+      'body@':
+        templateUrl: 'assets/views/companies/edit.html'
+        controller: 'EditCompanyCtrl'
+        controllerAs: 'ecomp'
+    params:
+      id: null
+    resolve:
+      comp: (Company, Helper, $stateParams) ->
+        Helper.goBack() unless $stateParams.id
+        Company.getOne($stateParams.id).then (result) ->
+          return result.data
+        , (error) ->
+          Helper.goBack()
 
   ##################################
   #
@@ -347,6 +367,14 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
         , (error) ->
           return error
 
+  .state 'root.admin.usercreate',
+    url: '/user/new'
+    views:
+      'body@':
+        templateUrl: 'assets/views/admin/newuser.html'
+        controller: 'AdminUserCtrl'
+        controllerAs: 'usrcrt'
+
   .state 'root.admin.interestlist',
     url: '/interests'
     views:
@@ -360,6 +388,15 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
           return response
         , (error) ->
           return error
+
+  .state 'root.admin.interestcreate',
+    url: '/interest/new'
+    views:
+      'body@':
+        templateUrl: 'assets/views/admin/newinterest.html'
+        controller: 'AdminInterestCtrl'
+        controllerAs: 'intrcrt'
+
 
   .state 'root.admin.companylist',
     url: '/companies'

@@ -1,11 +1,21 @@
 .container
-  .row.well.well-sm(ng-repeat="company in cmps.companyList")
-    .col-sm-3
+  h1.text-blue.text-center Organisationen
+  .col-12.well.well-sm.blue
+    form(name='filter')
+      select.selectpicker.text-center(ng-model="cmps.subfilter")
+        option.text-center(value="", selected) Organisationen
+        option.text-center(value="Firma", selected) Firma
+        option.text-center(value="Institut", selected) Institut
+        option.text-center(value="Klinik", selected) Klinik
+  .row.well.well-sm(ng-repeat="company in cmps.companyList | filter: cmps.subfilter")
+    .col-sm-2
       img.thumbnail(ng-src="{{company.logo.url}}" alt="logo" ng-hide="!company.logo.url", ng-cloak)
-    .col-sm-6
+    .col-sm-7
       .row
         .text-blue
           u.h2 {{company.name}}
+      .row
+        hr
       .row
          p {{company.description}}
     .col-sm-3

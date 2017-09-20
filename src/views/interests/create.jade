@@ -46,9 +46,9 @@
           label.control-label Titel der Anzeige
           .form-group(ng-class="{ 'has-error' : newPostForm.title.$invalid && !newPostForm.title.$pristine }")  
             input#interest_form_title.form-control(name="title", ng-minlength="2", ng-model="npost.form.interest.title", required, maxlength="45")
-          label.control-label Beschreibungstext (bis 300 Zeichen)
+          label.control-label Beschreibungstext (bis 1500 Zeichen)
           .form-group(ng-class="{ 'has-error' : newPostForm.description.$invalid && !newPostForm.description.$pristine }")
-            textarea#interest_description.form-control(rows="5", cols ="60", name="description", ng-minlength="10", ng-model="npost.form.interest.description", required, maxlength="300")
+            textarea#interest_description.form-control(rows="5", cols ="300", name="description", ng-minlength="10", ng-model="npost.form.interest.description", required, maxlength="1500")
           hr
           .form-group
             .col-md-6

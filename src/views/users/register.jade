@@ -3,24 +3,27 @@
     .panel.panel-default
       .panel-heading
         h1.text-blue#registrations_title.panel-title Registrierung
-      .panel-body
+      .panel-body.container-fluid
         label.control-label.h3.text-blue Accountdaten
         form(name="registrationForm", novalidate, enctype="multipart/form-data")
           .form-group(ng-class="{ 'has-error' : reg.errors.username }")
-            label.control-label Accountname *
-              input#registrations_input_username.form-control(name="username", ng-minlength="4",
-                ng-model="reg.form.user.username", data-toggle="tooltip" title="Mit ihrem Accountnamen können Sie sich später einloggen.", data-placement="left")
+            .col-md-12
+              label.control-label Accountname *
+              input#registrations_input_username.form-control(name="username", ng-minlength="3",
+                  ng-model="reg.form.user.username", data-toggle="tooltip" title="Mit ihrem Accountnamen können Sie sich später einloggen. (Min. 3 Zeichen)", data-placement="left" size="100")
           .form-group(ng-class="{'has-error' : reg.errors.password || reg.errors.password_confirmation }")
-            label.control-label(style="margin-right: 10px;") Passwort *
+            .col-md-6
+              label.control-label(style="margin-right: 10px;") Passwort *
               input#registrations_input_password.form-control(name="password", type="password", ng-minlength="8",
-                ng-model="reg.form.user.password" data-toggle="tooltip" title="Ihr Password sollte zwischen 8 und 30 Zeichen lang sein.", data-placement="left")
-            label.control-label Passwort bestätigen *
+                ng-model="reg.form.user.password" data-toggle="tooltip" title="Ihr Passwort sollte zwischen 8 und 30 Zeichen lang sein.", data-placement="left" size="100" maxlength="30")
+            .col-md-6
+              label.control-label Passwort bestätigen *
               input#registrations_input_passcon.form-control(name="password-confirmation", type="password", ng-minlength="8",
-                ng-model="reg.form.user.password_confirmation")
-          .form-group(ng-class="{ 'has-error' : (registrationForm.email.$invalid  && !registrationForm.email.$pristine) || reg.errors.email }")
-            label.control-label Email *
-              input#registrations_input_email.form-control(name="email", ng-minlength="6",
-                ng-model="reg.form.user.email", maxlength="30")
+                ng-model="reg.form.user.password_confirmation" size="100" maxlength="30")
+          .form-group(ng-class="{ 'has-error' : (registrationForm.email.$invalid  && !registrationForm.email.$pristine) || reg.errors.email || (reg.form.user.password_confirmation != reg.form.user.password) }")
+            .col-md-12
+              label.control-label Email *
+                input#registrations_input_email.form-control(type="email" name="email", ng-model="reg.form.user.email" size="100")
           label.control-label Ich bin/Ich repräsentiere...
           .form-group(ng-class="{'has-error' : reg.errors.typus }")
             label.radio-inline
@@ -38,40 +41,48 @@
           .form-group(ng-class="{'has-error' : reg.errors.company }")
             select(name="company" ng-model="reg.form.contact_data.company_id" ng-options="company.id as company.name for company in reg.companies | filter: {'typus': reg.form.user.typus} | orderBy: 'name'" ng-show="reg.form.user.typus == 'Institut' || reg.form.user.typus == 'Klinik' || reg.form.user.typus == 'Firma'", ng-change="console.log(reg.form.contact_data.company_id)")
               option.text-center(value='', selected) {{reg.form.user.typus}} hinzufügen.
-          label.control-label.h3.text-blue(ng-hide="reg.form.user.typus == 'Student'") Kontaktdaten
+          label.control-label.h3.text-blue(ng-hide="reg.form.user.typus == 'Student'") Geschäftl. Kontaktdaten
           .form-group(ng-class="{'has-error' : reg.errors.firstname || reg.errors.lastname}" ng-hide="reg.form.user.typus == 'Student'")
-            label.control-label(style="margin-right: 10px;") Vorname *
-              input#registrations_input_firstname.form-control(name="lastname",
-                ng-model="reg.form.contact_data.firstname")
-            label.control-label Nachname *
-              input#registrations_input_lastname.form-control(name="lastname",
-                ng-model="reg.form.contact_data.lastname")
+            .col-md-6
+              label.control-label(style="margin-right: 10px;") Vorname *
+                input#registrations_input_firstname.form-control(type="text" name="firstname",
+                  ng-model="reg.form.contact_data.firstname" size="100")
+            .col-md-6
+              label.control-label Nachname *
+                input#registrations_input_lastname.form-control(type="text" name="lastname",
+                  ng-model="reg.form.contact_data.lastname" size="100")
           .form-group(ng-class="{'has-error' : reg.errors.company.name }" ng-hide="reg.form.user.typus == 'Student' || reg.form.contact_data.company_id")
-            label.control-label Organisationsname *
-              input#registrations_input_companyname.form-control(name="companyname",
-                ng-model="reg.form.company.name")
+            .col-md-12
+              label.control-label Organisationsname *
+                input#registrations_input_companyname.form-control(type="text" name="companyname",
+                  ng-model="reg.form.company.name" size="100")
           .form-group(ng-class="{'has-error' : reg.errors.plz || reg.errors.ort }" ng-hide="reg.form.user.typus == 'Student'")
-            label.control-label(style="margin-right: 10px;") Postleitzahl *
-              input#registrations_input_plz.form-control(name="plz", ng-minlength="5",
-                ng-model="reg.form.contact_data.plz", maxlength="5")
-            label.control-label Ort *
-              input#registrations_input_ort.form-control(name="ort",
-                ng-model="reg.form.contact_data.ort")
-          .form-group(ng-class="{'has-error' : reg.errors.web }" ng-hide="reg.form.user.typus == 'Student'")
-            label.control-label Website *
-              input#registrations_input_web.form-control(name="web", ng-minlength="4",
-                ng-model="reg.form.contact_data.web")
+            .col-md-2
+              label.control-label(style="margin-right: 10px;") Postleitzahl *
+                input#registrations_input_plz.form-control(type="text" pattern="^[0-9][0-9][0-9][0-9][0-9]$" name="plz", ng-minlength="5",
+                  ng-model="reg.form.contact_data.plz", maxlength="5", size="10")
+            .col-md-10  
+              label.control-label Ort *
+                input#registrations_input_ort.form-control(type="text" name="ort",
+                  ng-model="reg.form.contact_data.ort", size="100")
           .form-group(ng-class="{'has-error' : reg.errors.fon }" ng-hide="reg.form.user.typus == 'Student'")
-            label.control-label Telefonnummer *
-              input#registrations_input_fon.form-control(name="fon", ng-minlength="5",
-                ng-model="reg.form.contact_data.fon")
+            .col-md-12
+              label.control-label Telefonnummer *
+                input#registrations_input_fon.form-control(type="tel" name="fon", ng-minlength="5",
+                  ng-model="reg.form.contact_data.fon" size="100")
+          .form-group.form-group-3(ng-class="{'has-error' : reg.errors.web }" ng-hide="reg.form.user.typus == 'Student'")
+            .col-md-12
+              label.control-label Website *
+                .input-group
+                  span.input-group-addon http://
+                  input#registrations_input_web.form-control(type="url" name="web", ng-minlength="4", ng-model="reg.form.contact_data.web" size="100")
           .form-group(ng-class="{'has-error' : reg.errors.company.description }" ng-hide="reg.form.user.typus == 'Student' || reg.form.contact_data.company_id")
-            label.control-label Kurzbeschreibung d. Organisation *
-              textarea#registrations_input_companydesc.form-control(name="comapnydescription",
-                ng-model="reg.form.company.description", maxlength="300")
+            label.control-label Kurzbeschreibung d. Organisation (max. 2000 Zeichen) *
+              textarea#registrations_input_companydesc.form-control(name="companydescription",
+                ng-model="reg.form.company.description", maxlength="2000", style="resize: none;", rows="5", cols ="400")
           .form-group(ng-class="{'has-error' : registrationForm.logo.$invalid }" ng-hide="reg.form.user.typus == 'Student' || reg.form.contact_data.company_id")
-            label.control-label Firmenlogo
-              input(type="file", ngf-select, ng-model="reg.form.company.logo" name="logo" accept="image/*" ngf-max-size="2MB" ngf-max-height="300" ngf-max-width="350")
+            label.control-label Firmenlogo (max. 2MB)
+              input(type="file", ngf-select, ng-model="reg.form.company.logo", name="logo", accept="image/*", ngf-max-size="2MB")
           b * = Pflichtfeld
           hr
           .form-group

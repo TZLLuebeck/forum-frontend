@@ -9,7 +9,8 @@ var gulp = require('gulp'),
   plumber = require( 'gulp-plumber' ),
   newer = require('gulp-newer'),
   notify     = require('gulp-notify'),
-  gulpif = require('gulp-if');
+  gulpif = require('gulp-if'),
+  log_rm = require("gulp-remove-logging");
 var DEST = config.public_root;
 
 //Resolve dependencies and compress sources
@@ -31,8 +32,7 @@ gulp.task('coffee', function() {
             message: '<%= error.message %>',
           })
         }))
-    /*.pipe(gulpif(config.env == 'production', uglify({
-      outSourceMap: true
-    })))*/
+    .pipe(gulpif(config.env == 'production', log_rm()))
+    .pipe(gulpif(config.env == 'production', uglify()))
     .pipe(gulp.dest(DEST));
 });

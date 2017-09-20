@@ -21,10 +21,10 @@
             .text-center.clickable(ng-click='companies.viewCmp(cmp.id)')
               p {{cmp.name}} 
           td.text-center {{cmp.description}}
-          td.text-center 0
+          td.text-center 
           td.text-center
             button.btn.btn-success(ng-hide="cmp.validated", ng-click="companies.approveCompany(cmp)") A
-            button.btn.btn-default(ng-click="companies.edit(cmp.id)") E
+            button.btn.btn-default(ui-sref="root.companies.editcomp({id: cmp.id})") E
             button.btn.btn-danger(ng-disabled="!companies.unlocked" ng-click="companies.deleteCompany(cmp)") X
       tbody
         tr.text-center(ng-hide="companies.finishedLoading")

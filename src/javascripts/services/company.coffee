@@ -51,11 +51,14 @@ angular.module('mediMeet').service 'Company', (mediREST, $q, Upload, Rails) ->
 
   update = (company) ->
     defer = $q.defer()
-    packet = company
-    packet.put().then (response) =>
-      defer.resolve(response)
-    , (error) =>
-      defer.reject(error)
+    Upload.upload({
+      url: '/api/v1/companies/'+company.id
+      data: {data: company}
+      method: 'PUT'
+      }).then (response) =>
+        defer.resolve(response.data)
+      , (error) =>
+        defer.reject(error)
     defer.promise
 
   approve = (id) ->

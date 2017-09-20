@@ -1,0 +1,30 @@
+.container-fluid
+  .col-md-6.col-md-offset-3
+    .panel.panel-default
+      .panel-heading
+        h3#editcomp_title.panel-title Neue Organisation
+      .panel-body
+        form(name="editcompForm", novalidate, enctype="multipart/form-data")
+          label.control-label Überorganisation
+          .form-group
+            input#editcomp_input_parent.form-control(name="parent", ng-model="ecomp.form.company.parent", required)
+          label.control-label Name
+          .form-group
+            input#editcomp_input_username.form-control(name="name", ng-minlength="4", ng-model="ecomp.form.company.name", required)
+          label.control-label Website
+          .form-group
+            .input-group
+              span.input-group-addon http://
+              input#editcomp_input_website.form-control(name="website", ng-model="ecomp.form.company.website")
+          label.control-label Beschreibung
+          .form-group(ng-class="{ 'has-error' : editcompForm.description.$invalid && !editcompForm.description.$pristine }")
+            textarea#editcomp_description.form-control(rows="8", cols ="300", name="description", ng-minlength="10", ng-model="ecomp.form.company.description", required, maxlength="2000")
+          label.control-label Logo
+          input(type="file", ngf-select, ng-model="ecomp.form.company.logo" name="logo" accept="image/*" ngf-max-size="2MB")
+          hr
+          .form-group
+            .col-md-6
+              button#editcomp_button_back.btn.btn-default(ng-click="ecomp.goBack()") Abbrechen
+            .col-md-6              
+              button#editcomp_button_register.btn.btn-success(ng-click="ecomp.submit()",
+                ng-disabled="editcompForm.$invalid || ecomp.regInProgress") Erstellen 

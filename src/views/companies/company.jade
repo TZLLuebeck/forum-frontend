@@ -6,14 +6,14 @@
       a.clickable(ui-sref="root.companies") Organisationen
     li.active {{cmp.company.name}}
   .row
-    .col-sm-4
-      img(ng-src="cmp.company.logo.url", ng-hide="!cmp.company.logo.url", ngCloak)
-    .col-sm-5  
+    .col-sm-2
+      img(ng-src="{{cmp.company.logo.url}}", ng-hide="!cmp.company.logo.url", ngCloak)
+    .col-sm-7  
       p.h2.text-blue
         b {{cmp.company.name}}
       p {{cmp.company.website}}
     .col-sm-3
-      button.btn.btn-success(href="cmp.company.website") Zur Webseite
+      button.btn.btn-success(ng-href="http://"+"{{cmp.company.website}}") Zur Webseite
   hr
   .row
     h3.text-blue Firmenbeschreibung

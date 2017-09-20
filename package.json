@@ -69,6 +69,7 @@
     "gulp-plumber": "^1.1.0",
     "gulp-postcss": "^7.0.0",
     "gulp-protractor": "^4.1.0",
+    "gulp-remove-logging": "^1.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-rev": "^7.1.2",
     "gulp-rev-rails-manifest": "^0.1.0",

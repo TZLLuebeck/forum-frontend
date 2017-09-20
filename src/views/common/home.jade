@@ -1,7 +1,7 @@
 .jumbotron(style="background-image: url('/assets/images/header_edit.jpg'); background-size: cover; background-position: 65% 30%; margin-bottom: 0; height: 500px;")
   .text-left.text-blue
     h1 Open Innovation für Krankenhaus 4.0
-    h3 Finden Sie die richtigen Kontakte und beginnin Sie neue Kooperationen.
+    h3 Finden Sie die richtigen Kontakte und beginnen Sie neue Kooperationen.
 .jumbotron.blue.no-gutter
   .row
     .col-sm-9
@@ -56,7 +56,7 @@
         .text-white.text-left
           h2 Ihr Unternehmen ist noch nicht eingetragen?
           h5 Präsentieren Sie Ihr Angebot für neue Kooperationen und Kontakte.
-    .col-sm-3.well.clickable
+    .col-sm-3.well.clickable(ui-sref='root.register')
       .text-center
         p Jetzt kostenfrei starten
 .container-fluid
@@ -93,6 +93,6 @@
 .row
   .text-center.text-blue
     h1 Beliebte Keywords
-  .col-sm-8.col-sm-offset-2
+  .col-sm-8.col-sm-offset-2(style="margin-top: 20px;")
     .col-sm-3.label-distance(ng-repeat="keyword in home.keywords")
       span.label.label-primary {{keyword[0]}}

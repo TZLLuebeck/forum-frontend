@@ -1,4 +1,4 @@
-angular.module('mediMeet').service 'User', (mediREST, $q, $http, Rails, $rootScope) ->
+angular.module('mediMeet').service 'User', (mediREST, $q, $http, Rails, $rootScope, Upload) ->
   users = mediREST.one('users')
   @user = null
   @deferreds = {}
@@ -8,11 +8,13 @@ angular.module('mediMeet').service 'User', (mediREST, $q, $http, Rails, $rootSco
 
   registerUser = (user) ->
     defer = $q.defer()
-    users.data = user
-    users.post().then (response) ->
+    Upload.upload({
+      url: '/api/v1/users/'
+      data: {data: user}
+      }).then (response) =>
       defer.resolve(response.data)
-    , (error) ->
-      defer.reject(error.data.error)
+    , (error) =>
+      defer.reject(error)
     defer.promise
 
   # READ

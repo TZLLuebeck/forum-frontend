@@ -25,11 +25,11 @@ angular.module('mediMeet').controller 'RegistrationCtrl', (TokenContainer, User,
           @form.user.company = @form.company
       User.registerUser(@form.user).then (results) =>
         @regInProgress = false
-        User.user = results.user
-        TokenContainer.set(results.token)
+        User.user = results.data.user
+        TokenContainer.set(results.data.token)
         User.unauthorized = false
         $rootScope.$broadcast('user:stateChanged')
-        $state.go('root.interest.createinterest')
+        Helper.goBack()
       , (error) =>
         console.log('Register Error')
         console.log(error)
