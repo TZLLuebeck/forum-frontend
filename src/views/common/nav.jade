@@ -9,13 +9,13 @@ nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
       a.navbar-brand(ui-sref="root.home")
         img.brand-image(src="/assets/images/if-krankenhaus-logo.jpg")
     .collapse.navbar-collapse#medimeet-navbar-collapse(style="margin-right: 5px;")
-      form.navbar-form.navbar-right(role="login" ng-hide="nav.isAuthenticated" name="registrationForm", novalidate)
+      form.navbar-form.navbar-right(role="login" ng-hide="nav.isAuthenticated" name="loginForm", novalidate)
         .form-group
           input#login_input_email.form-control.input-sm(name="username", type="text" ng-minlength="2", ng-model="nav.form.user.username", required, maxlength="30", placeholder="Accountname")
         .form-group
           input#login_input_password.form-control.input-sm(name="password", type="password" ng-minlength="8",
             ng-model="nav.form.user.password", required, maxlength="30", placeholder="Passwort")
-        button#registrations_button_register.btn.btn-default.btn-sm(type="submit" ng-click="nav.login()", ng-disabled="registrationForm.$invalid") Anmelden
+        button#login_button_login.btn.btn-default.btn-sm(type="submit" ng-click="nav.login()", ng-disabled="loginForm.$invalid") Anmelden
       ul.nav.navbar-nav.navbar-right(ng-show="nav.isAuthenticated")
         li.dropdown
           a.dropdown-toggle.clickable(data-toggle="dropdown", role="button") 
@@ -37,9 +37,21 @@ nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
               a(ui-sref="root.admin.companylist") Unternehmen
             li
               a(ui-sref="root.admin.statistics") Statistics
-      ul.nav.navbar-nav.navbar-right.clickable.btn.btn
+      ul.nav.navbar-nav.navbar-right.clickable
         li(ui-sref="root.interest.createinterest", ng-show="nav.isAuthenticated") 
           a.text-white Neues Angebot
-      ul.nav.navbar-nav.navbar-right.clickable.btn.btn
+      ul.nav.navbar-nav.navbar-right.clickable
         li(ui-sref="root.companies") 
           a.text-white Organisationen
+      ul.nav.navbar-nav.navbar-right
+        li.dropdown
+          a.dropdown-toggle(data-toggle="dropdown", role="button") Angebote
+          ul.dropdown-menu
+            li
+              a(ui-sref="root.explore({category: 'Hospital/IT 4.0'})") Hospital/IT 4.0
+            li
+              a(ui-sref="root.explore({category: 'Medizintechnik 4.0'})") Medizintechnik 4.0
+            li
+              a(ui-sref="root.explore({category: 'Facility Management 4.0'})") Facility Management 4.0
+            li
+              a(ui-sref="root.explore({category: 'Klinische Prozesse 4.0'})") Klinische Prozesse 4.0

@@ -10,8 +10,21 @@
 
 .navbar-nav li a:hover,
 .navbar-nav li.active a {
-  color: #eeeeee !important;
+  color: #bbbbbb !important;
   background-color: #4682b4;
+}
+
+li .dropdown-header {
+  color: #cccccc;
+}
+
+li.open > a {
+  background-color: #134f81 !important;
+}
+
+.navbar-inverse .dropdown-menu {
+     background-color: #4682b4;
+     color:#eeeeee;
 }
 
 .brand-image {

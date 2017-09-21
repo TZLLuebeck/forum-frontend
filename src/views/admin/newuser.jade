@@ -1,0 +1,84 @@
+.container-fluid(tooltips)
+  .col-md-6.col-md-offset-3
+    .panel.panel-default
+      .panel-heading
+        h1.text-blue#adminreg_title.panel-title Registrierung
+      .panel-body.container-fluid
+        label.control-label.h3.text-blue Accountdaten
+        form(name="adminregForm", novalidate, enctype="multipart/form-data")
+          .form-group(ng-class="{ 'has-error' : usrcrt.errors.username }")
+            .col-md-12
+              label.control-label Accountname *
+              input#adminreg_input_username.form-control(name="username", ng-minlength="3",
+                  ng-model="usrcrt.form.user.username", data-toggle="tooltip" title="Mit ihrem Accountnamen können Sie sich später einloggen. (Min. 3 Zeichen)", data-placement="left" size="100")
+          .form-group(ng-class="{'has-error' : reg.errors.password || reg.errors.password_confirmation }")
+            .col-md-6
+              label.control-label(style="margin-right: 10px;") Passwort *
+              input#registrations_input_password.form-control(name="password", type="password", ng-minlength="8",
+                ng-model="usrcrt.form.user.password" data-toggle="tooltip" title="Ihr Passwort sollte zwischen 8 und 30 Zeichen lang sein.", data-placement="left" size="100" maxlength="30")
+            .col-md-6
+              label.control-label Passwort bestätigen *
+              input#registrations_input_passcon.form-control(name="password-confirmation", type="password", ng-minlength="8",
+                ng-model="usrcrt.form.user.password_confirmation" size="100" maxlength="30")
+          .form-group(ng-class="{ 'has-error' : (adminregForm.email.$invalid  && !adminregForm.email.$pristine) || usrcrt.errors.email || (usrcrt.form.user.password_confirmation != usrcrt.form.user.password) }")
+            .col-md-12
+              label.control-label Email *
+                input#adminreg_input_email.form-control(type="email" name="email", ng-model="usrcrt.form.user.email" size="100")
+          label.control-label Accounttyp *
+          .form-group(ng-class="{'has-error' : usrcrt.errors.typus }")
+            label.radio-inline
+              input(name="type" type="radio", ng-model="usrcrt.form.user.typus", value="Klinik") 
+              | Klinik
+            label.radio-inline
+              input(name="type" type="radio", ng-model="usrcrt.form.user.typus", value="Institut") 
+              | Institut
+            label.radio-inline
+              input(name="type" type="radio", ng-model="usrcrt.form.user.typus", value="Firma")
+              | Firma
+            label.radio-inline
+              input(name="type" type="radio", ng-model="usrcrt.form.user.typus", value="Data")
+              | Data
+            label.radio-inline
+              input(name="type" type="radio", ng-model="usrcrt.form.user.typus", value="Statistics")
+              | Statistik
+          .form-group(ng-class="{'has-error' : usrcrt.errors.company }")
+            select(name="company" ng-model="usrcrt.form.contact_data.company_id" ng-options="company.id as company.name for company in usrcrt.companies | filter: {'typus': usrcrt.form.user.typus} | orderBy: 'name'" ng-show="usrcrt.form.user.typus == 'Institut' || usrcrt.form.user.typus == 'Klinik' || usrcrt.form.user.typus == 'Firma'", ng-change="console.log(usrcrt.form.contact_data.company_id)")
+              option.text-center(value='', selected) {{usrcrt.form.user.typus}} hinzufügen.
+          label.control-label.h3.text-blue(ng-hide="usrcrt.form.user.typus == 'Student'") Geschäftl. Kontaktdaten
+          .form-group(ng-class="{'has-error' : usrcrt.errors.firstname || usrcrt.errors.lastname}" ng-hide="usrcrt.form.user.typus == 'Data' || usrcrt.form.user.typus == 'Statistics'")
+            .col-md-6
+              label.control-label(style="margin-right: 10px;") Vorname *
+                input#adminreg_input_firstname.form-control(type="text" name="firstname",
+                  ng-model="usrcrt.form.contact_data.firstname" size="100")
+            .col-md-6
+              label.control-label Nachname *
+                input#adminreg_input_lastname.form-control(type="text" name="lastname",
+                  ng-model="usrcrt.form.contact_data.lastname" size="100")
+          .form-group(ng-class="{'has-error' : usrcrt.errors.plz || usrcrt.errors.ort }" ng-hide="usrcrt.form.user.typus == 'Data' || usrcrt.form.user.typus == 'Statistics'")
+            .col-md-2
+              label.control-label(style="margin-right: 10px;") Postleitzahl *
+                input#adminreg_input_plz.form-control(type="text" pattern="^[0-9][0-9][0-9][0-9][0-9]$" name="plz", ng-minlength="5",
+                  ng-model="usrcrt.form.contact_data.plz", maxlength="5", size="10")
+            .col-md-10  
+              label.control-label Ort *
+                input#adminreg_input_ort.form-control(type="text" name="ort",
+                  ng-model="usrcrt.form.contact_data.ort", size="100")
+          .form-group(ng-class="{'has-error' : usrcrt.errors.fon }" ng-hide="usrcrt.form.user.typus == 'Data' || usrcrt.form.user.typus == 'Statistics'")
+            .col-md-12
+              label.control-label Telefonnummer *
+                input#adminreg_input_fon.form-control(type="tel" name="fon", ng-minlength="5",
+                  ng-model="usrcrt.form.contact_data.fon" size="100")
+          .form-group.form-group-3(ng-class="{'has-error' : usrcrt.errors.web }" ng-hide="usrcrt.form.user.typus == 'Data' || usrcrt.form.user.typus == 'Statistics'")
+            .col-md-12
+              label.control-label Website *
+                .input-group
+                  span.input-group-addon http://
+                  input#adminreg_input_web.form-control(type="text" name="web", ng-minlength="4", ng-model="usrcrt.form.contact_data.web" size="100")
+          b * = Pflichtfeld
+          hr
+          .form-group
+            .col-md-6
+              button#adminreg_button_back.btn.btn-default(ng-click="usrcrt.goBack()") Abbrechen
+            .col-md-6              
+              button#adminreg_button_register.btn.btn-success(ng-click="usrcrt.register()",
+                ng-disabled="adminregForm.$pristine || adminregForm.$invalid || usrcrt.regInProgress") Registrieren

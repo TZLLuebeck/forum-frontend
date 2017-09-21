@@ -374,6 +374,12 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
         templateUrl: 'assets/views/admin/newuser.html'
         controller: 'AdminUserCtrl'
         controllerAs: 'usrcrt'
+    resolve:
+      companies: (Company) =>
+        Company.getAll().then (response) ->
+          return response
+        , (error) ->
+          return error
 
   .state 'root.admin.interestlist',
     url: '/interests'

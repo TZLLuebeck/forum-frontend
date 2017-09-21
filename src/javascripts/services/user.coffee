@@ -17,6 +17,16 @@ angular.module('mediMeet').service 'User', (mediREST, $q, $http, Rails, $rootSco
       defer.reject(error)
     defer.promise
 
+  adminReg = (user) ->
+    defer = $q.defer()
+    packet = users.one('create')
+    packet.data = user
+    packet.post().then (response) =>
+      defer.resolve(response.data)
+    , (error) =>
+      defer.reject(error)
+    defer.promise
+
   # READ
 
   getAll = () ->
@@ -157,4 +167,5 @@ angular.module('mediMeet').service 'User', (mediREST, $q, $http, Rails, $rootSco
   logout: logout
   deleteUser: deleteUser
   registerUser: registerUser
+  adminReg: adminReg
   isAuthenticated: isAuthenticated

@@ -75,7 +75,7 @@
               label.control-label Website *
                 .input-group
                   span.input-group-addon http://
-                  input#registrations_input_web.form-control(type="url" name="web", ng-minlength="4", ng-model="reg.form.contact_data.web" size="100")
+                  input#registrations_input_web.form-control(type="text" name="web", ng-minlength="4", ng-model="reg.form.contact_data.web" size="100")
           .form-group(ng-class="{'has-error' : reg.errors.company.description }" ng-hide="reg.form.user.typus == 'Student' || reg.form.contact_data.company_id")
             label.control-label Kurzbeschreibung d. Organisation (max. 2000 Zeichen) *
               textarea#registrations_input_companydesc.form-control(name="companydescription",

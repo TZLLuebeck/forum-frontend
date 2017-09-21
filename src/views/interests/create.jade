@@ -5,7 +5,7 @@
         h1#registrations_title.panel-title.text-blue Angebot/Suche anlegen.
       .panel-body
         form(name="newPostForm", novalidate)
-          label.control-label Ich
+          label.control-label Ich *
           .form-group
             label.radio-inline
               input(name="offer" type="radio", ng-model="npost.form.interest.offer", required, value="offer")
@@ -13,7 +13,7 @@
             label.radio-inline
               input(name="offer" type="radio", ng-model="npost.form.interest.offer", required, value="search")
               | suche...
-          label.control-label Art
+          label.control-label Art *
           .form-group
             label.radio-inline
               input(name="type" type="radio", ng-model="npost.form.interest.typus", required, value="F\&E-Kooperation") 
@@ -27,28 +27,31 @@
             label.radio-inline
               input(name="type" type="radio", ng-model="npost.form.interest.typus", required, value="Bachelor/Masterarbeit")
               | Bachelor/Masterarbeit
-          label.control-label mit
+          label.control-label mit *
           .form-group
             select.form-control(name="target", ng-model="npost.form.interest.target", required)
               option Firma
               option Klinik
               option Institut
               option Student
-          label.control-label In welcher Kategorie soll Ihre Anzeige erscheinen?
+          label.control-label In welcher Kategorie soll Ihre Anzeige erscheinen? *
           .form-group
             label.control-label Kategorie
               select.selectpicker.form-control(name="category", ng-model="npost.category", ng-options="category as category.category for category in npost.categories", ng-change="npost.changeCategory()", required)
             label.control-label Unterkategorie
               select.selectpicker.form-control(ng-disabled="!(npost.subcategories.length)", name="subcategory", ng-model="npost.subcategory", ng-options="subcategory as subcategory.subcategory for subcategory in npost.subcategories", ng-change="npost.changeSubcategory()",required)
-          label.control-label Keywords
+            p.help-block(ng-show="npost.category") {{npost.category.category}}: {{npost.category.description}}
+            p.help-block(ng-show="npost.subcategory") {{npost.subcategory.subcategory}}: {{npost.subcategory.description}}
+          label.control-label Keywords *
           .form-group
-            select.selectpicker.form-control(ng-disabled="!(npost.keywords.length)", ng-model="npost.form.interest.keywords", ng-options="keyword as keyword for keyword in npost.keywords", multiple, required, data-toggle='tooltip', title="Wählen Sie bis zu 3 Keywords für ihre Anzeige aus.") 
-          label.control-label Titel der Anzeige
+            select.selectpicker.form-control(ng-disabled="!(npost.keywords.length)", ng-model="npost.form.interest.keywords", ng-options="keyword as keyword for keyword in npost.keywords", multiple, required, data-toggle='tooltip', title="Wählen Sie bis zu 3 Keywords für ihre Anzeige aus. (Mehrere Elemente können mit Strg ausgewählt werden.)") 
+          label.control-label Titel der Anzeige *
           .form-group(ng-class="{ 'has-error' : newPostForm.title.$invalid && !newPostForm.title.$pristine }")  
             input#interest_form_title.form-control(name="title", ng-minlength="2", ng-model="npost.form.interest.title", required, maxlength="45")
-          label.control-label Beschreibungstext (bis 1500 Zeichen)
+          label.control-label Beschreibungstext (bis 1500 Zeichen) *
           .form-group(ng-class="{ 'has-error' : newPostForm.description.$invalid && !newPostForm.description.$pristine }")
             textarea#interest_description.form-control(rows="5", cols ="300", name="description", ng-minlength="10", ng-model="npost.form.interest.description", required, maxlength="1500")
+          b * = Pflichtfeld
           hr
           .form-group
             .col-md-6
