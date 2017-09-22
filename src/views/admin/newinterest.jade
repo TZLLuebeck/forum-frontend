@@ -1,0 +1,62 @@
+.container-fluid(tooltips)
+  .col-lg-10.col-lg-offset-1
+    .panel.panel-default
+      .panel-heading
+        h1#registrations_title.panel-title.text-blue Angebot/Suche anlegen.
+      .panel-body
+        form(name="adminPostForm", novalidate)
+          .form-group
+            label.control-label Wer? *
+              select.selectpicker.form-control(name="id", ng-model="intrcrt.form.interest.user_id", ng-options="user.id as user.username for user in intrcrt.userlist", required)
+          .form-group
+            label.radio-inline
+              input(name="offer" type="radio", ng-model="intrcrt.form.interest.offer", required, value="offer")
+              |  bietet...
+            label.radio-inline
+              input(name="offer" type="radio", ng-model="intrcrt.form.interest.offer", required, value="search")
+              | sucht...
+          label.control-label Art *
+          .form-group
+            label.radio-inline
+              input(name="type" type="radio", ng-model="intrcrt.form.interest.typus", required, value="F\&E-Kooperation") 
+              | F&E-Kooperation
+            label.radio-inline
+              input(name="type" type="radio", ng-model="intrcrt.form.interest.typus", required, value="Projektpartnerschaft") 
+              | Projektpartnerschaft
+            label.radio-inline
+              input(name="type" type="radio", ng-model="intrcrt.form.interest.typus", required, value="Praktikum")
+              | Praktikum
+            label.radio-inline
+              input(name="type" type="radio", ng-model="intrcrt.form.interest.typus", required, value="Bachelor/Masterarbeit")
+              | Bachelor/Masterarbeit
+          label.control-label mit *
+          .form-group
+            select.form-control(name="target", ng-model="intrcrt.form.interest.target", required)
+              option Firma
+              option Klinik
+              option Institut
+              option Student
+          label.control-label In welcher Kategorie soll Ihre Anzeige erscheinen? *
+          .form-group
+            label.control-label Kategorie
+              select.selectpicker.form-control(name="category", ng-model="intrcrt.category", ng-options="category as category.category for category in intrcrt.categories", ng-change="intrcrt.changeCategory()", required)
+            label.control-label Unterkategorie
+              select.selectpicker.form-control(ng-disabled="!(intrcrt.subcategories.length)", name="subcategory", ng-model="intrcrt.subcategory", ng-options="subcategory as subcategory.subcategory for subcategory in intrcrt.subcategories", ng-change="intrcrt.changeSubcategory()",required)
+            p.help-block(ng-show="intrcrt.category") {{intrcrt.category.category}}: {{intrcrt.category.description}}
+            p.help-block(ng-show="intrcrt.subcategory") {{intrcrt.subcategory.subcategory}}: {{intrcrt.subcategory.description}}
+          label.control-label Keywords *
+          .form-group
+            select.selectpicker.form-control(ng-disabled="!(intrcrt.keywords.length)", ng-model="intrcrt.form.interest.keywords", ng-options="keyword as keyword for keyword in intrcrt.keywords", multiple, required, data-toggle='tooltip', title="Wählen Sie bis zu 3 Keywords für ihre Anzeige aus. (Mehrere Elemente können mit Strg ausgewählt werden.)") 
+          label.control-label Titel der Anzeige *
+          .form-group(ng-class="{ 'has-error' : adminPostForm.title.$invalid && !adminPostForm.title.$pristine }")  
+            input#adminterest_form_title.form-control(name="title", ng-minlength="2", ng-model="intrcrt.form.interest.title", required, maxlength="45")
+          label.control-label Beschreibungstext (bis 1500 Zeichen) *
+          .form-group(ng-class="{ 'has-error' : adminPostForm.description.$invalid && !adminPostForm.description.$pristine }")
+            textarea#adminterest_description.form-control(rows="5", cols ="300", name="description", ng-minlength="10", ng-model="intrcrt.form.interest.description", required, maxlength="1500")
+          b * = Pflichtfeld
+          hr
+          .form-group
+            .col-md-6
+              button#registrations_button_back.btn.btn-default(ui-sref="root.profile") Abbrechen
+            .col-md-6              
+              button#registrations_button_register.btn.btn-success(ng-click="intrcrt.create_post()", ng-disabled="adminPostForm.$invalid") Erstellen

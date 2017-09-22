@@ -14,6 +14,17 @@ angular.module('mediMeet').service 'Interests', (mediREST, $q) ->
       defer.reject(error.data.error)
     defer.promise
 
+  assignInterest = (interest) ->
+    defer = $q.defer()
+    packet = mediREST.one('interests').one('create')
+    packet.data = interest
+    packet.post().then (response) ->
+      console.log('Interest posted')
+      defer.resolve(response.data)
+    , (error) ->
+      defer.reject(error.data.error)
+    defer.promise
+
   #READ
 
   getAll = ->
@@ -89,6 +100,7 @@ angular.module('mediMeet').service 'Interests', (mediREST, $q) ->
     defer.promise
 
   createInterest: createInterest
+  assignInterest: assignInterest
   getAll: getAll
   getInterest: getInterest
   makeContact: makeContact

@@ -402,7 +402,14 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
         templateUrl: 'assets/views/admin/newinterest.html'
         controller: 'AdminInterestCtrl'
         controllerAs: 'intrcrt'
-
+    resolve: 
+      users: (User) ->
+        User.getAll().then (response) ->
+          console.log(response)
+          return response
+        , (error) ->
+          console.log(error)
+          return error
 
   .state 'root.admin.companylist',
     url: '/companies'

@@ -26,3 +26,5 @@
           td.text-center
             button.btn.btn-default(ng-click="interests.edit(post.id)") E
             button.btn.btn-danger(ng-disabled="!interests.unlocked", ng-click="interests.deletePost(post)") X
+  button.btn.btn-default(
+    ui-sref="root.admin.interestcreate") Neues Angebot
