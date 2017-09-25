@@ -4,7 +4,7 @@
       .panel-heading
         h1#registrations_title.panel-title.text-blue Anzeige bearbeiten
       .panel-body
-        form(name="editPostForm", novalidate)
+        form(name="editPostForm", novalidate, enctype="multipart/form-data")
           label.control-label Ich
           .form-group
             label.radio-inline
@@ -48,7 +48,8 @@
             input#interest_form_title.form-control(name="title", ng-minlength="2", ng-model="intedit.form.interest.title", required, maxlength="30")
           label.control-label Beschreibungstext
           .form-group(ng-class="{ 'has-error' : editPostForm.description.$invalid && !editPostForm.description.$pristine }")
-            textarea#interest_description.form-control(rows="5", cols ="60", name="description", ng-minlength="10", ng-model="intedit.form.interest.description", required, maxlength="300")
+            textarea#interest_description.form-control(rows="5", cols ="60", name="description", ng-minlength="10", ng-model="intedit.form.interest.description", required, maxlength="1500")
+          input(type="file", ngf-select, ng-model="intedit.form.interest.attachment" name="attachment" accept="application/pdf" ngf-max-size="2MB")
           hr
           .form-group
             .col-md-4

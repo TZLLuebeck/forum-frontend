@@ -57,11 +57,11 @@
                 input#registrations_input_companyname.form-control(type="text" name="companyname",
                   ng-model="reg.form.company.name" size="100")
           .form-group(ng-class="{'has-error' : reg.errors.plz || reg.errors.ort }" ng-hide="reg.form.user.typus == 'Student'")
-            .col-md-2
-              label.control-label(style="margin-right: 10px;") Postleitzahl *
+            .col-md-3
+              label.control-label(style="margin-right: 10px; white-space: nowrap;") Postleitzahl *
                 input#registrations_input_plz.form-control(type="text" pattern="^[0-9][0-9][0-9][0-9][0-9]$" name="plz", ng-minlength="5",
                   ng-model="reg.form.contact_data.plz", maxlength="5", size="10")
-            .col-md-10  
+            .col-md-9  
               label.control-label Ort *
                 input#registrations_input_ort.form-control(type="text" name="ort",
                   ng-model="reg.form.contact_data.ort", size="100")

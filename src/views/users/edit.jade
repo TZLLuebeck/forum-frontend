@@ -6,43 +6,53 @@
       .panel-body
         form(name="usereditForm", novalidate)
           .form-group(ng-class="{ 'has-error' : usereditForm.email.$invalid && !usereditForm.email.$pristine }")
-            label.control-label Email
-              input#useredit_input_email.form-control(name="email", ng-minlength="6",
-                ng-model="predit.form.user.email", required, maxlength="30")
+            .col-md-12
+              label.control-label Email
+                input#useredit_input_email.form-control(name="email", ng-minlength="6",
+                  ng-model="predit.form.user.email", required, size="100")
           label.control-label Kontaktdaten
           .form-group
-            label.control-label Vorname
-              input#useredit_input_firstname.form-control(name="lastname",
-                ng-model="predit.form.user.firstname", required)
-            label.control-label Nachname
-              input#useredit_input_lastname.form-control(name="lastname",
-                ng-model="predit.form.user.lastname", required)
+            .col-md-6
+              label.control-label Vorname
+                input#useredit_input_firstname.form-control(name="lastname",
+                  ng-model="predit.form.user.firstname", required, size="100")
+            .col-md-6
+              label.control-label Nachname
+                input#useredit_input_lastname.form-control(name="lastname",
+                  ng-model="predit.form.user.lastname", required, size="100")
           .form-group
-            label.control-label Postleitzahl
-              input#useredit_input_plz.form-control(name="plz", ng-minlength="5",
-                ng-model="predit.form.user.plz", required, maxlength="5")
-            label.control-label Ort
-              input#useredit_input_ort.form-control(name="ort",
-                ng-model="predit.form.user.ort", required)
+            .col-md-3
+              label.control-label Postleitzahl
+                input#useredit_input_plz.form-control(name="plz", ng-minlength="5",
+                  ng-model="predit.form.user.plz", required, maxlength="5", size="100")
+            .col-md-9
+              label.control-label Ort
+                input#useredit_input_ort.form-control(name="ort",
+                  ng-model="predit.form.user.ort", required, size="100")
           .form-group
-            label.control-label Website
-              input#useredit_input_web.form-control(name="web", ng-minlength="4",
-                ng-model="predit.form.user.web", required)
+            .col-md-12
+              label.control-label Website
+                input#useredit_input_web.form-control(name="web", ng-minlength="4",
+                  ng-model="predit.form.user.web", required, size="100")
           .form-group  
-            label.control-label Telefonnummer
-              input#useredit_input_fon.form-control(name="fon", ng-minlength="5",
-                ng-model="predit.form.user.fon")
+            .col-md-12
+              label.control-label Telefonnummer
+                input#useredit_input_fon.form-control(name="fon", ng-minlength="5",
+                  ng-model="predit.form.user.fon", size="100")
           .form-group
-            label.control-label Neues Passwort
-              input#useredit_input_npassword.form-control(name="newpassword", type="password", ng-minlength="8",
-                ng-model="predit.form.user.password")
-            label.control-label Neues Passwort Bestätigen
-              input#useredit_input_npasswordc.form-control(name="newpassword-confirm", type="password", ng-minlength="8",
-                ng-model="predit.form.user.password_confirmation")
+            .col-md-6
+              label.control-label Neues Passwort
+                input#useredit_input_npassword.form-control(name="newpassword", type="password", ng-minlength="8",
+                  ng-model="predit.form.user.password", maxlength="30", size="100")
+            .col-md-6
+              label.control-label Neues Passwort Bestätigen
+                input#useredit_input_npasswordc.form-control(name="newpassword-confirm", type="password", ng-minlength="8",
+                  ng-model="predit.form.user.password_confirmation", maxlenght="30", size="100")
           .form-group
-            label.control-label Passwort
-              input#useredit_input_password.form-control(name="password", type="password", ng-minlength="8",
-                ng-model="predit.form.user.current_password", required)
+            .col-md-12
+              label.control-label Passwort
+                input#useredit_input_password.form-control(name="password", type="password", ng-minlength="8",
+                  ng-model="predit.form.user.current_password", maxlength="30", size="100", required)
           .form-group
             .col-md-4
               button#useredit_button_back.btn.btn-default(ng-click="predit.abort()") Abbrechen

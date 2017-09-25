@@ -55,11 +55,11 @@
                 input#adminreg_input_lastname.form-control(type="text" name="lastname",
                   ng-model="usrcrt.form.contact_data.lastname" size="100")
           .form-group(ng-class="{'has-error' : usrcrt.errors.plz || usrcrt.errors.ort }" ng-hide="usrcrt.form.user.typus == 'Data' || usrcrt.form.user.typus == 'Statistics'")
-            .col-md-2
-              label.control-label(style="margin-right: 10px;") Postleitzahl *
+            .col-md-3
+              label.control-label(style="margin-right: 10px; white-space: nowrap;") Postleitzahl *
                 input#adminreg_input_plz.form-control(type="text" pattern="^[0-9][0-9][0-9][0-9][0-9]$" name="plz", ng-minlength="5",
                   ng-model="usrcrt.form.contact_data.plz", maxlength="5", size="10")
-            .col-md-10  
+            .col-md-9  
               label.control-label Ort *
                 input#adminreg_input_ort.form-control(type="text" name="ort",
                   ng-model="usrcrt.form.contact_data.ort", size="100")

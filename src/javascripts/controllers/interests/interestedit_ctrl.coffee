@@ -46,7 +46,7 @@ angular.module('mediMeet').controller 'InterestEditCtrl', (Interests, $state, $s
     @form.interest.category = @category.category
     @form.interest.subcategory = @subcategory.subcategory
     @rest.data = @form.interest
-    Interests.editInterest(@rest).then (results) =>
+    Interests.editInterest(@form.interest).then (results) =>
       Helper.goBack()
     , (error) =>
       console.log(error)

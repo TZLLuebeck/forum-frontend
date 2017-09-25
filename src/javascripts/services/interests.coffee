@@ -1,29 +1,49 @@
-angular.module('mediMeet').service 'Interests', (mediREST, $q) ->
+angular.module('mediMeet').service 'Interests', (mediREST, $q, Upload) ->
 
 
   #CREATE
 
   createInterest = (interest) ->
     defer = $q.defer()
-    packet = mediREST.one('interests')
-    packet.data = interest
-    packet.post().then (response) ->
-      console.log('Interest posted')
+    Upload.upload({
+      url: '/api/v1/interests/'
+      data: {data: interest}
+      arrayKey: '[]'
+      }).then (response) =>
       defer.resolve(response.data)
-    , (error) ->
-      defer.reject(error.data.error)
+    , (error) =>
+      defer.reject(error)
     defer.promise
+
+    #packet = mediREST.one('interests')
+    #packet.data = interest
+    #packet.post().then (response) ->
+    #  console.log('Interest posted')
+    #  defer.resolve(response.data)
+    #, (error) ->
+    #  defer.reject(error.data.error)
+    #defer.promise
 
   assignInterest = (interest) ->
     defer = $q.defer()
-    packet = mediREST.one('interests').one('create')
-    packet.data = interest
-    packet.post().then (response) ->
-      console.log('Interest posted')
+    Upload.upload({
+      url: '/api/v1/interests/create/'
+      data: {data: interest}
+      arrayKey: '[]'
+      }).then (response) =>
       defer.resolve(response.data)
-    , (error) ->
-      defer.reject(error.data.error)
+    , (error) =>
+      defer.reject(error)
     defer.promise
+
+    #packet = mediREST.one('interests').one('create')
+    #packet.data = interest
+    #packet.post().then (response) ->
+    #  console.log('Interest posted')
+    #  defer.resolve(response.data)
+    #, (error) ->
+    #  defer.reject(error.data.error)
+    #defer.promise
 
   #READ
 
@@ -80,13 +100,24 @@ angular.module('mediMeet').service 'Interests', (mediREST, $q) ->
   #UPDATE
   editInterest = (interest) ->
     defer = $q.defer()
-    packet = interest
-    packet.put().then (response) ->
-      console.log('editInterest')
-      defer.resolve(response)
-    , (error) ->
-      defer.reject(error)
+    Upload.upload({
+      url: '/api/v1/interests/'
+      data: {data: interest}
+      arrayKey: '[]'
+      method: 'PUT'
+      }).then (response) =>
+        defer.resolve(response.data)
+      , (error) =>
+        defer.reject(error)
     defer.promise
+
+    #packet = interest
+    #packet.put().then (response) ->
+    #  console.log('editInterest')
+    #  defer.resolve(response)
+    #, (error) ->
+    #  defer.reject(error)
+    #defer.promise
 
   #DELETE
   deleteInterest = (id) ->

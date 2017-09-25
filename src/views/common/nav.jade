@@ -22,7 +22,7 @@ nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
             b {{nav.username}}
           ul.dropdown-menu
             li
-              a(ui-sref="root.profile") Profil
+              a(ui-sref="root.profile") Accountprofil
             li
               a#navbar_a_logout.text-white.clickable(ng-click="nav.logout()") Abmelden
       ul.nav.navbar-nav.navbar-right(ng-show="nav.isAuthenticated")
@@ -32,20 +32,20 @@ nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
             li
               a(ui-sref="root.admin.userlist") Nutzer
             li
-              a(ui-sref="root.admin.interestlist") Angebote und Suchen
+              a(ui-sref="root.admin.interestlist") Profile
             li
               a(ui-sref="root.admin.companylist") Unternehmen
             li
               a(ui-sref="root.admin.statistics") Statistics
       ul.nav.navbar-nav.navbar-right.clickable
         li(ui-sref="root.interest.createinterest", ng-show="nav.isAuthenticated") 
-          a.text-white Neues Angebot
+          a.text-white Neues Profil
       ul.nav.navbar-nav.navbar-right.clickable
         li(ui-sref="root.companies") 
           a.text-white Organisationen
       ul.nav.navbar-nav.navbar-right
         li.dropdown
-          a.dropdown-toggle(data-toggle="dropdown", role="button") Angebote
+          a.dropdown-toggle(data-toggle="dropdown", role="button") Profile
           ul.dropdown-menu
             li
               a(ui-sref="root.explore({category: 'Hospital/IT 4.0'})") Hospital/IT 4.0

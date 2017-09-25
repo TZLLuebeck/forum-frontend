@@ -13,12 +13,14 @@
         b {{cmp.company.name}}
       p {{cmp.company.website}}
     .col-sm-3
-      button.btn.btn-success(ng-href="http://"+"{{cmp.company.website}}") Zur Webseite
+      a.btn.btn-success(ng-href="http://{{cmp.company.website}}" target="_blank") Zur Webseite
   hr
   .row
-    h3.text-blue Firmenbeschreibung
+    .container
+      h3.text-blue Firmenbeschreibung
   .row
-    p {{cmp.company.description}}
+    .container
+      p {{cmp.company.description}}
   hr
   .row.well.well-sm(ng-repeat="post in cmp.company.posts")
     .col-sm-8.col-sm-offset-1
