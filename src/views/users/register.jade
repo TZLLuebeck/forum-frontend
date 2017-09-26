@@ -56,6 +56,11 @@
               label.control-label Organisationsname *
                 input#registrations_input_companyname.form-control(type="text" name="companyname",
                   ng-model="reg.form.company.name" size="100")
+          .form-group(ng-class="{'has-error' : reg.errors.company.parent }" ng-hide="reg.form.user.typus == 'Student' || reg.form.contact_data.company_id")
+            .col-md-12
+              label.control-label Zugehörigkeit
+                input#registrations_input_companyname.form-control(type="text" name="parent",
+                  ng-model="reg.form.company.parent" size="100", data-toggle="tooltip", title="Füllen Sie dieses Feld aus, falls Ihre Organisation einer anderen zugehörig ist. Bsp.: Institut für Robotik, zugehörig zu Universität zu Lübeck.")
           .form-group(ng-class="{'has-error' : reg.errors.plz || reg.errors.ort }" ng-hide="reg.form.user.typus == 'Student'")
             .col-md-3
               label.control-label(style="margin-right: 10px; white-space: nowrap;") Postleitzahl *

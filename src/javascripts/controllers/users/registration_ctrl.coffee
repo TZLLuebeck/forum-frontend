@@ -8,6 +8,7 @@ angular.module('mediMeet').controller 'RegistrationCtrl', (TokenContainer, User,
   }
   @regInProgress = false
   @errors = {}
+  @serverside = {}
   @companies = companies
 
   @goBack = =>
@@ -31,11 +32,17 @@ angular.module('mediMeet').controller 'RegistrationCtrl', (TokenContainer, User,
         $rootScope.$broadcast('user:stateChanged')
         Helper.goBack()
       , (error) =>
-        console.log('Register Error')
-        console.log(error)
-        if error.status == 404
-          console.log('Email not found')
-        @regInProgress = false
+        switch error.status
+          when 409
+            if error.data.error == "email_exists"
+              @errors.email.msg = "Ein Account mit dieser Email-Addresse existiert bereits."
+            else if error.error == "username_exists"
+              @errors.username.msg = "Ein Account mit diesem Namen existiert bereits." 
+          when 400
+            for e in error.data.error
+              for m in e.messages
+                warning = m.split(":")
+                @serverside[warning[0]] = warning[1]
     else
       console.log("Validation failed.")
 

@@ -9,7 +9,6 @@ angular.module('mediMeet').factory 'unauthorizedHandler', ($injector) ->
       if response.data.error.reason = 'expired'
         console.log("Token expired.")
         access.delete()
-        state.go('root.home')
       else
         console.log("No Token.")
         access.delete()

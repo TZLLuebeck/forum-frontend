@@ -7,7 +7,7 @@
         option.text-center(value="Firma", selected) Firma
         option.text-center(value="Institut", selected) Institut
         option.text-center(value="Klinik", selected) Klinik
-  .row.well.well-sm(ng-repeat="company in cmps.companyList | filter: cmps.subfilter")
+  .row.well.well-sm(ng-repeat="company in cmps.companyList | filter: cmps.subfilter ? {typus: cmps.subfilter} : undefined")
     .col-sm-2
       img.thumbnail(ng-src="{{company.logo.url}}" alt="logo" ng-hide="!company.logo.url", ng-cloak)
     .col-sm-7
@@ -15,6 +15,7 @@
         .text-blue
           u.h2 {{company.name}}
       .row
+          u.h5  - {{company.parent}}
         hr
       .row
          span {{company.description | limitTo: 180}}

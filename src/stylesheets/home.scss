@@ -54,3 +54,19 @@
 .label-distance {
   margin-bottom: 3px;
 }
+
+ul .customSymbol {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+li .customSymbol {
+  padding-left: 1em;
+  text-indent: -1em;
+}
+
+li.customSymbol::before {
+  content: "✔";
+  padding-right: 5px;
+}

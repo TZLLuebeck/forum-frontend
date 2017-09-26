@@ -133,6 +133,14 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
         controller: 'LoginCtrl'
         controllerAs: 'login'
 
+  .state 'forgot_password',
+    url: '/password_reset'
+    views:
+      'body@':
+        templateUrl: 'assets/views/users/password.html'
+        controller: 'PasswordResetCtrl'
+        controllerAs: 'reset'
+
   .state 'root.profile',
     url: '/profile'
     params:

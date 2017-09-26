@@ -12,10 +12,10 @@
            button.btn.btn-warning.btn-lg(ui-sref="root.interest.createinterest") Jetzt Profil Schalten
   .container-fluid(ng-show="search.category == 'Klinische Prozesse 4.0'", ng-cloak)
     .jumbotron.text-blue(style="background-image: url('/assets/images/header_klinische_prozesse.jpg'); background-size: cover; background-position: 65% 30%; margin-bottom: 0; height: 300px;")
-      h1 Klinisches Prozessmanagment
+      h1 Klinisches Prozessmanagement
     .row
       .col-sm-9
-        h3 Klinisches Prozessmanagment
+        h3 Klinisches Prozessmanagement
         span Klinische Prozesse umfassen im Unternehmen Krankenhaus sowohl administrative wie gesundheitsversorgende Abläufe. Durch den Einsatz von 4.0 Technologien können diese mit interoperablen, IT-gestützten Systemen genau erfasst und geregelt werden, damit die Unterschiedlichen Abteilungen und Gruppen wie Ärzteschaft, Pfleger und Verwaltung effizient und erfolgreich kooperieren und kommunizieren können. Durch e-health, also den Einsatz digitaler Technologien im Gesundheitswesen, wie Medical Apps, einheitliche Kommunikationsplattformen oder digitale Qualitäts- und Leistungserfassungssysteme ergeben sich neue Möglichkeiten der medizinischen Behandlung und administrativer Abläufe. 
         span.h5.clickable.text-blue()  Mehr
       .col-sm-3
@@ -54,7 +54,7 @@
           b
             u {{post.title}}
       .row(style="margin-top: 0")
-      .row
+      //.row
          p {{post.description | limitTo : 100}}
       .row
         .col-sm-2.flex(ng-repeat="keyword in post.keywords")

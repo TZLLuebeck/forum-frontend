@@ -7,15 +7,14 @@
       | Web: {{profile.user.web}}  Fon: {{profile.user.fon}}
     p
       | Ort: {{profile.user.plz}} {{profile.user.ort}}
-    p
-      | {{profile.user.firstname}} {{profile.user.lastname}}
 
     button.btn.btn-default(ng-show="profile.canEdit" ng-click="profile.editProfile()") Profil Bearbeiten
   .panel-group.container-fluid.well(ng-show="profile.interestList.length")
     .panel.panel-default
       h2.panel-title
         a(data-toggle="collapse" href="#postlist") 
-          h2.text-center.text-blue Meine Anzeigen
+          h2.text-center.text-blue Meine Profile 
+            i.fa.fa-chevron-down
     .panel-collapse.collapse(id="postlist")
       .row.well.well-sm(ng-repeat="post in profile.interestList")
         .col-sm-8.col-sm-offset-1

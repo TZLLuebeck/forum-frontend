@@ -124,6 +124,15 @@ angular.module('mediMeet').service 'User', (mediREST, $q, $http, Rails, $rootSco
         defer.resolve(response.data.data)
     defer.promise
 
+  resetPassword = (accountname) =>
+    packet = mediREST.one('users').one('reset')
+    defer = $q.defer()
+    packet.data = accountname
+    packet.post().then (response) ->
+      defer.resolve(response.data)
+    , (error) ->
+      defer.reject(error)
+    defer.promise
 
   # DELETE
 
@@ -164,6 +173,7 @@ angular.module('mediMeet').service 'User', (mediREST, $q, $http, Rails, $rootSco
   getInterests: getInterests
   retrieveUser: retrieveUser
   updateUser: updateUser
+  resetPassword: resetPassword
   logout: logout
   deleteUser: deleteUser
   registerUser: registerUser

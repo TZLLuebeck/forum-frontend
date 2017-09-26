@@ -16,13 +16,16 @@ nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
           input#login_input_password.form-control.input-sm(name="password", type="password" ng-minlength="8",
             ng-model="nav.form.user.password", required, maxlength="30", placeholder="Passwort")
         button#login_button_login.btn.btn-default.btn-sm(type="submit" ng-click="nav.login()", ng-disabled="loginForm.$invalid") Anmelden
+        .row
+          .col-sm-6.col-sm-offset-5
+            a.text-white(ui-sref="forgot_password") Passwort vergessen?
       ul.nav.navbar-nav.navbar-right(ng-show="nav.isAuthenticated")
         li.dropdown
           a.dropdown-toggle.clickable(data-toggle="dropdown", role="button") 
             b {{nav.username}}
           ul.dropdown-menu
             li
-              a(ui-sref="root.profile") Accountprofil
+              a(ui-sref="root.profile") Accountdaten
             li
               a#navbar_a_logout.text-white.clickable(ng-click="nav.logout()") Abmelden
       ul.nav.navbar-nav.navbar-right(ng-show="nav.isAuthenticated")
