@@ -142,7 +142,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
         controllerAs: 'reset'
 
   .state 'root.profile',
-    url: '/profile'
+    url: '/account'
     params:
       id: null
     views:
@@ -188,7 +188,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
 
 
   .state 'root.profile.interests',
-    url: '/interests'
+    url: '/profiles'
     views:
       'subbody@':
         templateUrl: 'assets/views/interests/list.html'
@@ -223,13 +223,13 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
           $state.go('root.home') unless error.status == 401
 
   .state 'root.interest.hidden',
-    url: '/interest'
+    url: '/profile'
     templateUrl: 'assets/views/interests/hidden.html'
     controller: 'InterestHiddenCtrl'
     controllerAs: 'ctrl'
 
   .state 'root.interest.revealed',
-    url: '/interest/contact'
+    url: '/profile/contact'
     data:
       permissions:
         except: 'anonymous'
@@ -390,7 +390,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
           return error
 
   .state 'root.admin.interestlist',
-    url: '/interests'
+    url: '/profiles'
     views:
       'body@':
         templateUrl: 'assets/views/admin/interests.html'
@@ -404,7 +404,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
           return error
 
   .state 'root.admin.interestcreate',
-    url: '/interest/new'
+    url: '/profiles/new'
     views:
       'body@':
         templateUrl: 'assets/views/admin/newinterest.html'

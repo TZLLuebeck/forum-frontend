@@ -4,16 +4,16 @@
       .panel-heading
         h1#registrations_title.panel-title.text-blue Angebots-/Such-Profil anlegen.
       .panel-body
-        form(name="adminPostForm", novalidate, enctype="multipart/form-data")
+        form(name="admiintrcrtForm", novalidate, enctype="multipart/form-data")
           .form-group
             label.control-label Wer? *
               select.selectpicker.form-control(name="id", ng-model="intrcrt.form.interest.user_id", ng-options="user.id as user.username for user in intrcrt.userlist", required)
           .form-group
             label.radio-inline
-              input(name="offer" type="radio", ng-model="intrcrt.form.interest.offer", required, value="offer")
+              input(name="offer" type="radio", ng-model="intrcrt.form.interest.offer", required, value="offer", ng-change="intrcrt.changeOffer()")
               |  bietet...
             label.radio-inline
-              input(name="offer" type="radio", ng-model="intrcrt.form.interest.offer", required, value="search")
+              input(name="offer" type="radio", ng-model="intrcrt.form.interest.offer", required, value="search", ng-change="intrcrt.changeOffer()")
               | sucht...
           label.control-label Art *
           .form-group
@@ -41,17 +41,17 @@
             label.control-label Kategorie
               select.selectpicker.form-control(name="category", ng-model="intrcrt.category", ng-options="category as category.category for category in intrcrt.categories", ng-change="intrcrt.changeCategory()", required)
             label.control-label Unterkategorie
-              select.selectpicker.form-control(ng-disabled="!(intrcrt.subcategories.length)", name="subcategory", ng-model="intrcrt.subcategory", ng-options="subcategory as subcategory.subcategory for subcategory in intrcrt.subcategories", ng-change="intrcrt.changeSubcategory()",required)
-            p.help-block(ng-show="intrcrt.category") {{intrcrt.category.category}}: {{intrcrt.category.description}}
-            p.help-block(ng-show="intrcrt.subcategory") {{intrcrt.subcategory.subcategory}}: {{intrcrt.subcategory.description}}
+              select.selectpicker.form-control(ng-disabled="!(intrcrt.subcategories.length) || intrcrt.category.category == 'Beliebig'", name="subcategory", ng-model="intrcrt.subcategory", ng-options="subcategory as subcategory.subcategory for subcategory in intrcrt.subcategories", ng-change="intrcrt.changeSubcategory()")
+            p.help-block(ng-show="intrcrt.category && intrcrt.category.category != 'Beliebig'") {{intrcrt.category.category}}: {{intrcrt.category.description}}
+            p.help-block(ng-show="intrcrt.subcategory && intrcrt.subcategory.subcategory != 'Beliebig'") {{intrcrt.subcategory.subcategory}}: {{intrcrt.subcategory.description}}
           label.control-label Keywords *
           .form-group
-            select.selectpicker.form-control(ng-disabled="!(intrcrt.keywords.length)", ng-model="intrcrt.form.interest.keywords", ng-options="keyword as keyword for keyword in intrcrt.keywords", multiple, required, data-toggle='tooltip', title="Wählen Sie bis zu 3 Keywords für ihre Anzeige aus. (Mehrere Elemente können mit Strg ausgewählt werden.)") 
+            select.selectpicker.form-control(ng-disabled="!(intrcrt.keywords.length) || intrcrt.category.category == 'Beliebig' || intrcrt.subcategory.subcategory == 'Beliebig'", ng-model="intrcrt.form.interest.keywords", ng-options="keyword as keyword for keyword in intrcrt.keywords", multiple, data-toggle='tooltip', title="Wählen Sie bis zu 3 Keywords für ihre Anzeige aus. (Mehrere Elemente können mit Strg ausgewählt werden.)") 
           label.control-label Titel des Profils *
-          .form-group(ng-class="{ 'has-error' : adminPostForm.title.$invalid && !adminPostForm.title.$pristine }")  
+          .form-group(ng-class="{ 'has-error' : admiintrcrtForm.title.$invalid && !admiintrcrtForm.title.$pristine }")  
             input#adminterest_form_title.form-control(name="title", ng-minlength="2", ng-model="intrcrt.form.interest.title", required, maxlength="45")
           label.control-label Beschreibungstext (bis 1500 Zeichen) *
-          .form-group(ng-class="{ 'has-error' : adminPostForm.description.$invalid && !adminPostForm.description.$pristine }")
+          .form-group(ng-class="{ 'has-error' : admiintrcrtForm.description.$invalid && !admiintrcrtForm.description.$pristine }")
             textarea#adminterest_description.form-control(rows="5", cols ="300", name="description", ng-minlength="10", ng-model="intrcrt.form.interest.description", required, maxlength="1500")
           input(type="file", ngf-select, ng-model="intrcrt.form.interest.attachment" name="attachment" accept="application/pdf" ngf-max-size="2MB")
           b * = Pflichtfeld
@@ -60,4 +60,4 @@
             .col-md-6
               button#registrations_button_back.btn.btn-default(ui-sref="root.profile") Abbrechen
             .col-md-6              
-              button#registrations_button_register.btn.btn-success(ng-click="intrcrt.create_post()", ng-disabled="adminPostForm.$invalid") Erstellen
+              button#registrations_button_register.btn.btn-success(ng-click="intrcrt.create_post()", ng-disabled="admiintrcrtForm.$invalid") Erstellen

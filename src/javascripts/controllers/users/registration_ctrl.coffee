@@ -44,7 +44,7 @@ angular.module('mediMeet').controller 'RegistrationCtrl', (TokenContainer, User,
                 warning = m.split(":")
                 @serverside[warning[0]] = warning[1]
     else
-      console.log("Validation failed.")
+      console.log("Validation failed.") 
 
   @validate = =>
     valid = true

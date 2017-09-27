@@ -39,12 +39,12 @@
             label.control-label Kategorie
               select.selectpicker.form-control(name="category", ng-model="npost.category", ng-options="category as category.category for category in npost.categories", ng-change="npost.changeCategory()", required)
             label.control-label Unterkategorie
-              select.selectpicker.form-control(ng-disabled="!(npost.subcategories.length)", name="subcategory", ng-model="npost.subcategory", ng-options="subcategory as subcategory.subcategory for subcategory in npost.subcategories", ng-change="npost.changeSubcategory()",required)
-            p.help-block(ng-show="npost.category") {{npost.category.category}}: {{npost.category.description}}
-            p.help-block(ng-show="npost.subcategory") {{npost.subcategory.subcategory}}: {{npost.subcategory.description}}
+              select.selectpicker.form-control(ng-disabled="!(npost.subcategories.length) || npost.category == 'Beliebig'", name="subcategory", ng-model="npost.subcategory", ng-options="subcategory as subcategory.subcategory for subcategory in npost.subcategories", ng-change="npost.changeSubcategory()",required)
+            p.help-block(ng-show="npost.category && npost.category != 'Beliebig'") {{npost.category.category}}: {{npost.category.description}}
+            p.help-block(ng-show="npost.subcategory && npost.subcategory != 'Beliebig'") {{npost.subcategory.subcategory}}: {{npost.subcategory.description}}
           label.control-label Keywords *
           .form-group
-            select.selectpicker.form-control(ng-disabled="!(npost.keywords.length)", ng-model="npost.form.interest.keywords", ng-options="keyword as keyword for keyword in npost.keywords", multiple, required, data-toggle='tooltip', title="Wählen Sie bis zu 3 Keywords für ihre Anzeige aus. (Mehrere Elemente können mit Strg ausgewählt werden.)") 
+            select.selectpicker.form-control(ng-disabled="!(npost.keywords.length) || npost.category == 'Beliebig' || npost.subcategory == 'Beliebig'", ng-model="npost.form.interest.keywords", ng-options="keyword as keyword for keyword in npost.keywords", multiple, data-toggle='tooltip', title="Wählen Sie bis zu 3 Keywords für ihre Anzeige aus. (Mehrere Elemente können mit Strg ausgewählt werden.)") 
           label.control-label Titel des Profils *
           .form-group(ng-class="{ 'has-error' : newPostForm.title.$invalid && !newPostForm.title.$pristine }")  
             input#interest_form_title.form-control(name="title", ng-minlength="2", ng-model="npost.form.interest.title", required, maxlength="45")
