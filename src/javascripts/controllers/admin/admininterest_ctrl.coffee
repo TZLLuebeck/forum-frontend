@@ -12,7 +12,7 @@ angular.module('mediMeet').controller 'AdminInterestCtrl', (Interests, Keywords,
   }
 
   @userlist  = users
-  @categories = Keywords.relations
+  @categories = angular.copy(Keywords.relations)
   @category = null
 
   @subcategories = []
@@ -23,16 +23,20 @@ angular.module('mediMeet').controller 'AdminInterestCtrl', (Interests, Keywords,
   @form = interest: {}
 
   @changeOffer = =>
+    # We switch to search
     if @form.interest.offer == "search"
+      # Any added to categories
       @categories.push(@anyCat)
       if @category
+        # if there is already a category selected, add any to subcategories as well
         @subcategories.push(@anySubCat)
-    else
-      if @category && @category.category == 'Beliebig'
-        @category = null
-        @subcategories = []
-      if @subcategory && @subcategory.subcategory == 'Beliebig'
-        @subcategory = null
+    else # We switch to offer
+      if @category && @category.category == 'Beliebig' # If a category selected and it's Any
+        @category = null # Remove selection
+        @subcategories = [] # Clear subcategories
+      if @subcategory && @subcategory.subcategory == 'Beliebig' # if subcategory is selected and it's any
+        @subcategory = null # remove selection
+      #Check if any is in category or subcategory. If so, remove it.
       cindex = @categories.indexOf(@anyCat)
       scindex = @subcategories.indexOf(@anySubCat)
       if cindex > -1
@@ -41,12 +45,10 @@ angular.module('mediMeet').controller 'AdminInterestCtrl', (Interests, Keywords,
         @subcategories.splice(scindex, 1)
 
   @changeCategory = =>
-    @subcategories = @category.subcategories
-    if @form.interest.offer == "search"
-      if @category.category != 'Beliebig'
-        @subcategories.push(@anySubCat)
-      else
-        @subcategory = @anySubCat
+    @subcategories = angular.copy(@category.subcategories)
+    if @form.interest.offer == "search" # We're searching
+      if @category.category != 'Beliebig' # category is not any
+        @subcategories.push(@anySubCat) # add any subcategory to existing
     @subcategory = null
     @keywords = []
     @form.interest.keywords = []

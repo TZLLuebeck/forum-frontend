@@ -20,7 +20,7 @@
       h3.text-blue Kurzbeschreibung
   .row
     .container
-      p {{cmp.company.description}}
+      p(style="white-space: pre-wrap;") {{cmp.company.description}}
   hr
   .row.well.well-sm(ng-repeat="post in cmp.company.posts")
     .col-sm-8.col-sm-offset-1

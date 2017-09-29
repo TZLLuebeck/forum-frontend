@@ -111,7 +111,6 @@ angular.module('mediMeet').service 'User', (mediREST, $q, $http, Rails, $rootSco
 
   # UPDATE
   updateUser = (user) =>
-    console.log(user)
     packet = mediREST.one('users')
     defer = $q.defer()
     Object.assign(packet, user.data[0])
@@ -122,6 +121,8 @@ angular.module('mediMeet').service 'User', (mediREST, $q, $http, Rails, $rootSco
       else
         console.log('golden!')
         defer.resolve(response.data.data)
+    , (error) ->
+      defer.reject(error)
     defer.promise
 
   resetPassword = (accountname) =>

@@ -1,4 +1,4 @@
-.container-fluid
+.container-fluid(tooltips)
   .col-md-6.col-md-offset-3
     .panel.panel-default
       .panel-heading
@@ -15,9 +15,9 @@
             label.radio-inline
               input(name="type" type="radio", ng-model="ncomp.form.company.typus", value="Firma")
               | Firma
-          label.control-label Überorganisation
+          label.control-label Zugehörigkeit
           .form-group
-            input#newcomp_input_parent.form-control(name="parent", ng-model="ncomp.form.company.parent", required)
+            input#newcomp_input_parent.form-control(name="parent", ng-model="ncomp.form.company.parent", required, data-toggle="tooltip", title="Füllen Sie dieses Feld aus, falls Ihre Organisation einer anderen zugehörig ist. Bsp.: Institut für Robotik, zugehörig zu Universität zu Lübeck.")
           label.control-label Name
           .form-group
             input#newcomp_input_username.form-control(name="name", ng-minlength="4", ng-model="ncomp.form.company.name", required)

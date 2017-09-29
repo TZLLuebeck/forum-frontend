@@ -20,6 +20,9 @@ angular.module('mediMeet').controller 'UserListCtrl', ($state, User, $scope, use
   @getUser = (id) =>
     $state.go('root.profile', {id: id})
 
+  @editUser = (id) =>
+    $state.go('root.profile.edit', {id: id})
+
   @deleteUser = (user) =>
     User.deleteUser(user.id).then (response) =>
       index = @userList.indexOf(user)

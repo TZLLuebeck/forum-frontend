@@ -3,7 +3,7 @@ angular.module('mediMeet').factory 'Keywords', () ->
   @categories = ["Hospital IT 4.0", "Medizintechnik 4.0", "Facility Management 4.0", "Klinische Prozesse 4.0"]
   @subcategories = ["Cloud/IT-Services/Big Data", "Mobile Anwendungen", "Daten-/Dokumentenaustausche", "Cyber-Security & Privacy", "Interoperabilität", "Assistenzsysteme", "Wartung und Service", "Usability", "IT-gestützte Instandhaltung", "IoT im Krankenhaus", "Blue/Green Hospital", "Supply-Chain-Management", "e-Health/Medical Apps", "Digitale Versorgungsplattform", "Qualitäts-/Leistungserfassung", "Integrierte Prozesse"]
   @keywords = ["IT-Services", "Digital Twin", "Big Data", "Connected Medical Devices", "Mobile Anwendungen/Mobile Devices", "Clinical Decision Support", "Daten- und Dokumentenaustausch", "Condition Monitoring", "Cyber-Security/IT-Sicherheit", "Telemedizin", "Safety/Funktionssicherheit", "personalisierte Medizin", "Datenschutz/Privacy", "elektronische Patientenakte (EPA)", "IT-gestützte Instandhaltung/Computerized Maintenance", "Medizingeräte/Medical Devices", "Internet of Things", "Cyber-physical-systems (CPS)", "Sustainability/Nachhaltigkeit", "Krankenhausinformationssystem (KIS)", "Green-/Blue-Hospital", "Predicitve Maintenance", "Supply-Chain-Management", "Processing", "Logistik", "Clinical Pathways/Behandlungspfade", "Interoperabilität", "Assistenzsysteme", "Wartung und Service", "Usability", "e-Health", "Medical Apps", "Clinical Unified Collaboration", "Qualitätsmanagement"]
-
+  
   @relations = [
     {
       category: "Hospital IT 4.0",

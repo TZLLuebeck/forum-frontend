@@ -16,6 +16,7 @@ angular.module('mediMeet').controller 'RegistrationCtrl', (TokenContainer, User,
 
   @register = =>
     if @validate()
+      @serverside = {}
       @regInProgress = true
       if @form.user.typus != 'Student'
         @form.user.contact_data = @form.contact_data
@@ -39,10 +40,7 @@ angular.module('mediMeet').controller 'RegistrationCtrl', (TokenContainer, User,
             else if error.error == "username_exists"
               @errors.username.msg = "Ein Account mit diesem Namen existiert bereits." 
           when 400
-            for e in error.data.error
-              for m in e.messages
-                warning = m.split(":")
-                @serverside[warning[0]] = warning[1]
+            @serverside = error.errors
     else
       console.log("Validation failed.") 
 

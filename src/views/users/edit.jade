@@ -1,4 +1,4 @@
-.container-fluid
+.container-fluid(tooltips)
   .col-sm-6.col-sm-offset-3
     .panel.panel-default
       .panel-heading
@@ -32,27 +32,34 @@
           .form-group
             .col-md-12
               label.control-label Website
-                input#useredit_input_web.form-control(name="web", ng-minlength="4",
-                  ng-model="predit.form.user.web", required, size="100")
+                .input-group
+                  span.input-group-addon http://
+                  input#useredit_input_web.form-control(name="web", ng-minlength="4",
+                    ng-model="predit.form.user.web", required, size="100")
           .form-group  
             .col-md-12
               label.control-label Telefonnummer
                 input#useredit_input_fon.form-control(name="fon", ng-minlength="5",
-                  ng-model="predit.form.user.fon", size="100")
+                  ng-model="predit.form.user.fon", size="100")  
+          .form-group
+            input#useredit_input_news(type="checkbox" name="news", ng-model="predit.form.user.news")
+            b Ich möchte automatisch informiert werden, wenn eines meiner Profile ein passendes Profil findet oder gefunden wird.
           .form-group
             .col-md-6
               label.control-label Neues Passwort
                 input#useredit_input_npassword.form-control(name="newpassword", type="password", ng-minlength="8",
-                  ng-model="predit.form.user.password", maxlength="30", size="100")
+                  ng-model="predit.form.user.password", maxlength="30", size="100", data-toggle="tooltip", title="Möchten Sie Ihr Passwort ändern, dann geben Sie hier ihr neues Passwort ein und bestätigen Sie es im nebenstehenden Feld.")
             .col-md-6
               label.control-label Neues Passwort Bestätigen
                 input#useredit_input_npasswordc.form-control(name="newpassword-confirm", type="password", ng-minlength="8",
                   ng-model="predit.form.user.password_confirmation", maxlenght="30", size="100")
           .form-group
             .col-md-12
-              label.control-label Passwort
+              label.control-label Aktuelles Passwort *
                 input#useredit_input_password.form-control(name="password", type="password", ng-minlength="8",
-                  ng-model="predit.form.user.current_password", maxlength="30", size="100", required)
+                  ng-model="predit.form.user.current_password", maxlength="30", size="100", required, data-toggle="tooltip", title="Bitte bestätigen Sie, dass Sie ihre Daten ändern möchten, indem Sie ihr aktuelles Passwort eingeben.")
+          b * = Pflichtfeld
+          hr
           .form-group
             .col-md-4
               button#useredit_button_back.btn.btn-default(ng-click="predit.abort()") Abbrechen
@@ -68,7 +75,7 @@
           h3.modal-title Account Löschen
           button.close(type="button", data-dismiss="modal") &times;
         .modal-body
-          p Sind Sie sich sicher, dass Sie Ihren Account löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden. Jede von Ihnen gestellte Anzeige wird ebenfalls gelöscht.
+          p Sind Sie sich sicher, dass Sie Ihren Account löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden. Jedes von Ihnen gestellte Profil wird ebenfalls gelöscht.
           .modal-footer
             button.btn.btn-danger(type="button", data-dismiss="modal", ng-click="predit.deleteAccount()") Löschen
             button.btn.btn-default(type="button", data-dismiss="modal") Behalten

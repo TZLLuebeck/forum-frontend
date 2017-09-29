@@ -14,7 +14,7 @@
       hr
       .row
         .col-sm-11
-          p {{intrst.interest.description}}
+          p(style="white-space: pre-wrap;") {{intrst.interest.description}}
       .row
         a.btn.btn-primary(ng-show="intrst.interest.attachment.url" ng-href="{{intrst.interest.attachment.url}}" ng-cloak target="_blank") Anhang ansehen
     .col-sm-4.jumbotron.blue(style="height:100%")

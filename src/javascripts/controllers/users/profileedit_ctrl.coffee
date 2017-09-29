@@ -1,4 +1,4 @@
-angular.module('mediMeet').controller 'ProfileEditCtrl', ($stateParams, $state, User, Helper) ->
+angular.module('mediMeet').controller 'ProfileEditCtrl', ($stateParams, $state, User, Helper, toaster) ->
 
   console.log('userEditCtrl active.')
   @form = user: {}
@@ -19,9 +19,14 @@ angular.module('mediMeet').controller 'ProfileEditCtrl', ($stateParams, $state, 
     @regInProgress = true
     @rest.data = @form.user
     User.updateUser(@rest).then (results) =>
+      @regInProgress = false
       @submittedForm = false
-      $state.go('root.profile', {id: $stateParams.id})
+      $state.go('root.profile', {id: $stateParams.id}, { reload: true })
     , (error) =>
+      console.log(error)
+      switch error.status
+        when 403
+          toaster.pop('error', "Falsches Passwort", "Das eingegebene Passwort war falsch.");
       @regInProgress = false
 
   @abort = ->
