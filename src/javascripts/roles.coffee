@@ -1,20 +1,22 @@
 angular.module('mediMeet').run ($q, PermRoleStore, User) ->
 
   PermRoleStore.defineRole 'anonymous', (stateParams) ->
+    defer = $q.defer()
     if User.isAuthenticated()
-      false
+      defer.reject()
     else
-      true
+      defer.resolve()
+    defer.promise
 
-  PermRoleStore.defineRole 'user', (stateParams) ->
+  PermRoleStore.defineRole 'registered', (stateParams) ->
     defer = $q.defer()
     User.getRoles().then (roles) ->
       if !roles
         defer.reject()
-      if 'user' in roles
-        defer.resolve()
-      else
-        defer.reject()
+      for role in ['admin', 'student', 'institute', 'company', 'klinik']
+        if role in roles
+          defer.resolve()
+          break;
     , -> #not logged in
       defer.reject()
     defer.promise
@@ -58,12 +60,12 @@ angular.module('mediMeet').run ($q, PermRoleStore, User) ->
       defer.reject()
     defer.promise
 
-  PermRoleStore.defineRole 'startup', (stateParams) ->
+  PermRoleStore.defineRole 'company', (stateParams) ->
     defer = $q.defer()
     User.getRoles().then (roles) ->
       if !roles
         defer.reject()
-      if 'startup' in roles
+      if 'company' in roles
         defer.resolve()
       else
         defer.reject()
@@ -71,12 +73,12 @@ angular.module('mediMeet').run ($q, PermRoleStore, User) ->
       defer.reject()
     defer.promise
 
-  PermRoleStore.defineRole 'company', (stateParams) ->
+  PermRoleStore.defineRole 'klinik', (stateParams) ->
     defer = $q.defer()
     User.getRoles().then (roles) ->
       if !roles
         defer.reject()
-      if 'company' in roles
+      if 'klinik' in roles
         defer.resolve()
       else
         defer.reject()

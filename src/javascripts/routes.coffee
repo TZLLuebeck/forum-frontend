@@ -217,10 +217,16 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
         controllerAs: 'intrst'
     resolve:
       info: (Interests, $stateParams, $state) ->
+        if($stateParams.id == null)
+          $state.go('root.home')
+          return 0
         Interests.getInterest($stateParams.id).then (response) =>
           return response.data
         , (error) ->
-          $state.go('root.home') unless error.status == 401
+          if error.status == 401
+            $state.go('root.register')
+          else
+            $state.go('root.home')
 
   .state 'root.interest.hidden',
     url: '/profile'
@@ -244,7 +250,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
         , (error) ->
           return error
 
-  .state 'root.interest.createinterest',
+  .state 'root.createinterest',
     url: '/create'
     views:
       'body@':
