@@ -14,11 +14,11 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     abstract: true
     views:
       'header@':
-        templateUrl: 'assets/views/common/nav.html'
+        templateUrl: 'assets/views/common/nav.html?v=20171006'
         controller: 'NavCtrl'
         controllerAs: 'nav'
       'footer@':
-        templateUrl: 'assets/views/common/footer.html'
+        templateUrl: 'assets/views/common/footer.html?v=20171006'
     resolve:
       identity: (TokenContainer, User, $rootScope) ->
         if TokenContainer.get()
@@ -50,7 +50,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     url: '/'
     views:
       'body@':
-        templateUrl: 'assets/views/common/home.html'
+        templateUrl: 'assets/views/common/home.html?v=20171006'
         controller: 'HomeCtrl'
         controllerAs: 'home'
 
@@ -60,7 +60,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
       category: null
     views:
       'body@':
-        templateUrl: 'assets/views/common/search.html'
+        templateUrl: 'assets/views/common/search.html?v=20171006'
         controller: 'SearchCtrl'
         controllerAs: 'search'
     resolve:
@@ -81,22 +81,22 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     url: '/impressum'
     views:
       'body@':
-        templateUrl: 'assets/views/common/impressum.html'
+        templateUrl: 'assets/views/common/impressum.html?v=20171006'
   .state 'root.kontakt',
     url: '/kontakt'
     views:
       'body@':
-        templateUrl: 'assets/views/common/kontakt.html'
+        templateUrl: 'assets/views/common/kontakt.html?v=20171006'
   .state 'root.agb',
     url: '/nutzungsbedingungen'
     views:
       'body@':
-        templateUrl: 'assets/views/common/agb.html'
+        templateUrl: 'assets/views/common/agb.html?v=20171006'
   .state 'root.antimaas',
     url: '/datenschutz'
     views:
       'body@':
-        templateUrl: 'assets/views/common/datenschutz.html'
+        templateUrl: 'assets/views/common/datenschutz.html?v=20171006'
 
   ############################
   #
@@ -115,7 +115,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     url: '/registration'
     views:
       'body@':
-        templateUrl: 'assets/views/users/register.html'
+        templateUrl: 'assets/views/users/register.html?v=20171006'
         controller: 'RegistrationCtrl'
         controllerAs: 'reg'
     resolve:
@@ -129,7 +129,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     url: '/login'
     views:
       'body@':
-        templateUrl: 'assets/views/users/login.html'
+        templateUrl: 'assets/views/users/login.html?v=20171006'
         controller: 'LoginCtrl'
         controllerAs: 'login'
 
@@ -137,7 +137,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     url: '/password_reset'
     views:
       'body@':
-        templateUrl: 'assets/views/users/password.html'
+        templateUrl: 'assets/views/users/password.html?v=20171006'
         controller: 'PasswordResetCtrl'
         controllerAs: 'reset'
 
@@ -147,7 +147,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
       id: null
     views:
       'body@':
-        templateUrl: 'assets/views/users/profile.html'
+        templateUrl: 'assets/views/users/profile.html?v=20171006'
         controller: 'ProfileCtrl'
         controllerAs: 'profile'
     resolve:
@@ -169,7 +169,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
       id: null
     views:
       'body@':
-        templateUrl: 'assets/views/users/edit.html'
+        templateUrl: 'assets/views/users/edit.html?v=20171006'
         controller: 'ProfileEditCtrl'
         controllerAs: 'predit'
     data:
@@ -191,7 +191,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     url: '/profiles'
     views:
       'subbody@':
-        templateUrl: 'assets/views/interests/list.html'
+        templateUrl: 'assets/views/interests/list.html?v=20171006'
         controller: 'InterestsCtrl'
         controllerAs: 'interests'
 
@@ -201,7 +201,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
       id: null
     views:
       'subbody@':
-        templateUrl: 'assets/views/interests/company.html'
+        templateUrl: 'assets/views/interests/company.html?v=20171006'
         controller: 'CompanyInterestCtrl'
         controllerAs: 'cmpint'
 
@@ -212,7 +212,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
       id: null
     views:
       'body@':
-        templateUrl: 'assets/views/interests/view.html'
+        templateUrl: 'assets/views/interests/view.html?v=20171006'
         controller: 'InterestCtrl'
         controllerAs: 'intrst'
     resolve:
@@ -230,7 +230,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
 
   .state 'root.interest.hidden',
     url: '/profile'
-    templateUrl: 'assets/views/interests/hidden.html'
+    templateUrl: 'assets/views/interests/hidden.html?v=20171006'
     controller: 'InterestHiddenCtrl'
     controllerAs: 'ctrl'
 
@@ -240,7 +240,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
       permissions:
         except: 'anonymous'
         redirectTo: 'root.interest.hidden'
-    templateUrl: 'assets/views/interests/revealed.html'
+    templateUrl: 'assets/views/interests/revealed.html?v=20171006'
     controller: 'InterestRevealedCtrl'
     controllerAs: 'ctrl'
     resolve:
@@ -254,7 +254,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     url: '/create'
     views:
       'body@':
-        templateUrl: 'assets/views/interests/create.html'
+        templateUrl: 'assets/views/interests/create.html?v=20171006'
         controller: 'NewPostCtrl'
         controllerAs: 'npost'
     data:
@@ -272,7 +272,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
         redirectTo: 'root.home'
     views:
       'body@':
-        templateUrl: 'assets/views/interests/edit.html'
+        templateUrl: 'assets/views/interests/edit.html?v=20171006'
         controller: 'InterestEditCtrl'
         controllerAs: 'intedit'
 
@@ -289,7 +289,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     url: '/companies'
     views:
       'body@':
-        templateUrl: 'assets/views/companies/companies.html'
+        templateUrl: 'assets/views/companies/companies.html?v=20171006'
         controller: 'CompaniesCtrl'
         controllerAs: 'cmps'
     resolve:
@@ -303,7 +303,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     url: '/view'
     views:
       'body@':
-        templateUrl: 'assets/views/companies/company.html'
+        templateUrl: 'assets/views/companies/company.html?v=20171006'
         controller: 'CompanyCtrl'
         controllerAs: 'cmp'
     params:
@@ -324,7 +324,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
         redirectTo: 'root.home'
     views:
       'body@':
-        templateUrl: 'assets/views/companies/create.html'
+        templateUrl: 'assets/views/companies/create.html?v=20171006'
         controller: 'NewCompanyCtrl'
         controllerAs: 'ncomp'
 
@@ -336,7 +336,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
         redirectTo: 'root.home'
     views:
       'body@':
-        templateUrl: 'assets/views/companies/edit.html'
+        templateUrl: 'assets/views/companies/edit.html?v=20171006'
         controller: 'EditCompanyCtrl'
         controllerAs: 'ecomp'
     params:
@@ -371,7 +371,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     url: '/users'
     views:
       'body@':
-        templateUrl: 'assets/views/admin/users.html'
+        templateUrl: 'assets/views/admin/users.html?v=20171006'
         controller: 'UserListCtrl'
         controllerAs: 'users'
     resolve:
@@ -385,7 +385,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     url: '/user/new'
     views:
       'body@':
-        templateUrl: 'assets/views/admin/newuser.html'
+        templateUrl: 'assets/views/admin/newuser.html?v=20171006'
         controller: 'AdminUserCtrl'
         controllerAs: 'usrcrt'
     resolve:
@@ -399,7 +399,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     url: '/profiles'
     views:
       'body@':
-        templateUrl: 'assets/views/admin/interests.html'
+        templateUrl: 'assets/views/admin/interests.html?v=20171006'
         controller: 'InterestListCtrl'
         controllerAs: 'interests'
     resolve:
@@ -413,7 +413,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     url: '/profiles/new'
     views:
       'body@':
-        templateUrl: 'assets/views/admin/newinterest.html'
+        templateUrl: 'assets/views/admin/newinterest.html?v=20171006'
         controller: 'AdminInterestCtrl'
         controllerAs: 'intrcrt'
     resolve: 
@@ -429,7 +429,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     url: '/companies'
     views:
       'body@':
-        templateUrl: 'assets/views/admin/companies.html'
+        templateUrl: 'assets/views/admin/companies.html?v=20171006'
         controller: 'CompanyListCtrl'
         controllerAs: 'companies'
 
@@ -437,6 +437,6 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     url: '/statistics'
     views:
       'body@':
-        templateUrl: 'assets/views/admin/statistics.html'
+        templateUrl: 'assets/views/admin/statistics.html?v=20171006'
         controller: 'StatisticsCtrl'
         controllerAs: 'stats'

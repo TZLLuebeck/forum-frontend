@@ -23,7 +23,7 @@ angular.module('mediMeet').service 'User', (mediREST, $q, $http, Rails, $rootSco
     packet.data = user
     packet.post().then (response) =>
       defer.resolve(response.data)
-    , (error) => 
+    , (error) =>
       defer.reject(error)
     defer.promise
 
