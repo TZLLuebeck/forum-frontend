@@ -18,7 +18,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
         controller: 'NavCtrl'
         controllerAs: 'nav'
       'footer@':
-        templateUrl: 'assets/views/common/footer.html?v=20171006'
+        templateUrl: 'assets/views/common/footer.html?v=20171009'
     resolve:
       identity: (TokenContainer, User, $rootScope) ->
         if TokenContainer.get()
@@ -60,7 +60,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
       category: null
     views:
       'body@':
-        templateUrl: 'assets/views/common/search.html?v=20171006'
+        templateUrl: 'assets/views/common/search.html?v=20171009'
         controller: 'SearchCtrl'
         controllerAs: 'search'
     resolve:

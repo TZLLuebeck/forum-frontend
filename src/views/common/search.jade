@@ -47,7 +47,17 @@
     form(name='filter')
       select.selectpicker.text-center(ng-model="search.subfilter" ng-options="sub.subcategory as sub.subcategory for sub in search.subcategories" ng-change="search.checkFilter()")
         option.text-center(value="", selected) Unterkategorie
-  .row.well.well-sm(ng-repeat="post in search.list | filter: search.subfilter ? {subcategory: search.subfilter} : undefined")
+      select.selectpicker.text-center(ng-model="search.typefilter" ng-change="search.checkFilter()")
+        option.text-center(value="", selected) Art
+        option.text-center(value="FE+E-Projektkooperation") FE+E-Projektkooperation
+        option.text-center(value="FE+E-Auftragszusammenarbeit") FE+E-Auftragszusammenarbeit
+        option.text-center(value="Praktikum") Praktikum
+        option.text-center(value="Bachelor/Masterarbeit") Bachelor/Masterarbeit
+      select.selectpicker.text-center(ng-model="search.searchfilter" ng-change="search.checkFilter()")
+        option.text-center(value="", selected) Angebot/Suche
+        option.text-center(value="offer") Angebot
+        option.text-center(value="search") Suche
+  .row.well.well-sm(ng-repeat="post in search.list | interestFilter:search.filter")
     .col-sm-8.col-sm-offset-1
       .row
         .text-blue.h2
