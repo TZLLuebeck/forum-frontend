@@ -33,12 +33,14 @@ angular.module('mediMeet').controller 'RegistrationCtrl', (TokenContainer, User,
         $rootScope.$broadcast('user:stateChanged')
         Helper.goBack()
       , (error) =>
-        switch error.status
+        @regInProgress = false
+        console.log(error)
+        switch error.data.status
           when 409
-            if error.data.error == "email_exists"
-              @errors.email.msg = "Ein Account mit dieser Email-Addresse existiert bereits."
-            else if error.error == "username_exists"
-              @errors.username.msg = "Ein Account mit diesem Namen existiert bereits." 
+            if error.data.error.name == "email_exists"
+              @serverside.email = "Ein Account mit dieser Email-Addresse existiert bereits."
+            else if error.data.error.name == "username_exists"
+              @serverside.username = "Ein Account mit diesem Namen existiert bereits." 
           when 400
             @serverside = error.errors
     else
