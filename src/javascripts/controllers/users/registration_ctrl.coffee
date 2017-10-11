@@ -23,7 +23,7 @@ angular.module('mediMeet').controller 'RegistrationCtrl', (TokenContainer, User,
         if !@form.contact_data.company_id
           delete @form.contact_data.company_id
           @form.company.typus = @form.user.typus
-          @form.company.web = @form.user.web
+          @form.company.website = @form.contact_data.web
           @form.user.company = @form.company
       User.registerUser(@form.user).then (results) =>
         @regInProgress = false

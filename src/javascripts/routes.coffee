@@ -19,7 +19,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
         controllerAs: 'nav'
       'footer@':
         templateUrl: 'assets/views/common/footer.html?v=20171009'
-    resolve:
+    resolve: 
       identity: (TokenContainer, User, $rootScope) ->
         if TokenContainer.get()
           User.retrieveUser().then (user) ->
@@ -50,7 +50,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     url: '/'
     views:
       'body@':
-        templateUrl: 'assets/views/common/home.html?v=20171006'
+        templateUrl: 'assets/views/common/home.html?v=20171011'
         controller: 'HomeCtrl'
         controllerAs: 'home'
 
@@ -115,7 +115,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     url: '/registration'
     views:
       'body@':
-        templateUrl: 'assets/views/users/register.html?v=20171006'
+        templateUrl: 'assets/views/users/register.html?v=20171011'
         controller: 'RegistrationCtrl'
         controllerAs: 'reg'
     resolve:
@@ -126,7 +126,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
           return error
 
   .state 'root.login',
-    url: '/login'
+    url: '/login' 
     views:
       'body@':
         templateUrl: 'assets/views/users/login.html?v=20171006'
@@ -289,7 +289,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
     url: '/companies'
     views:
       'body@':
-        templateUrl: 'assets/views/companies/companies.html?v=20171006'
+        templateUrl: 'assets/views/companies/companies.html?v=20171011'
         controller: 'CompaniesCtrl'
         controllerAs: 'cmps'
     resolve:
@@ -324,7 +324,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
         redirectTo: 'root.home'
     views:
       'body@':
-        templateUrl: 'assets/views/companies/create.html?v=20171006'
+        templateUrl: 'assets/views/companies/create.html?v=20171011'
         controller: 'NewCompanyCtrl'
         controllerAs: 'ncomp'
 
@@ -336,7 +336,7 @@ angular.module('mediMeet').config ($stateProvider, $urlRouterProvider, $location
         redirectTo: 'root.home'
     views:
       'body@':
-        templateUrl: 'assets/views/companies/edit.html?v=20171006'
+        templateUrl: 'assets/views/companies/edit.html?v=20171011'
         controller: 'EditCompanyCtrl'
         controllerAs: 'ecomp'
     params:

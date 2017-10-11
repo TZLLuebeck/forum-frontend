@@ -3,9 +3,9 @@ angular.module('mediMeet').controller 'SearchCtrl', (Interests, $stateParams, $s
   @list = initials
   @category = category
   @subcategories = []
-  @subfilter = ""
-  @typefilter = ""
-  @searchfilter = ""
+  @subfilter
+  @typefilter
+  @searchfilter
   @filter = null
   @page = 1
 
@@ -21,7 +21,7 @@ angular.module('mediMeet').controller 'SearchCtrl', (Interests, $stateParams, $s
     else
       @filter = null
 
-  @init = =>
+  @init = => 
     for rel in Keywords.relations
       if rel.category == $stateParams.category
         @subcategories = rel.subcategories

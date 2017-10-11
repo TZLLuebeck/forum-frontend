@@ -97,6 +97,15 @@ angular.module('mediMeet').service 'Interests', (mediREST, $q, Upload) ->
       defer.reject(error)
     defer.promise
 
+  getRandom = () ->
+    defer = $q.defer()
+    packet = mediREST.one('interests').one('target')
+    packet.get().then (response) ->
+      defer.resolve(response)
+    , (error) ->
+      defer.reject(error)
+    defer.promise
+
   #UPDATE
   editInterest = (interest) ->
     defer = $q.defer()
@@ -136,6 +145,7 @@ angular.module('mediMeet').service 'Interests', (mediREST, $q, Upload) ->
   getInterest: getInterest
   makeContact: makeContact
   getKeywords: getKeywords
+  getRandom: getRandom
   getByCategory: getByCategory
   editInterest: editInterest
   deleteInterest: deleteInterest

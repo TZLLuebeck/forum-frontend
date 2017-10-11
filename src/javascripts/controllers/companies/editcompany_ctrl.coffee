@@ -3,6 +3,8 @@ angular.module('mediMeet').controller 'EditCompanyCtrl', (Company, Helper, comp)
   console.log(comp)
 
   @form = {company: comp.company}
+  if !@form.company.parent
+    delete @form.company.parent
   delete @form.company.logo
 
   @submit = =>

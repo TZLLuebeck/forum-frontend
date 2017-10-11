@@ -17,7 +17,7 @@
               | Firma
           label.control-label Zugehörigkeit
           .form-group
-            input#newcomp_input_parent.form-control(name="parent", ng-model="ncomp.form.company.parent", required, data-toggle="tooltip", title="Füllen Sie dieses Feld aus, falls Ihre Organisation einer anderen zugehörig ist. Bsp.: Institut für Robotik, zugehörig zu Universität zu Lübeck.")
+            input#newcomp_input_parent.form-control(name="parent", ng-model="ncomp.form.company.parent", data-toggle="tooltip", title="Füllen Sie dieses Feld aus, falls Ihre Organisation einer anderen zugehörig ist. Bsp.: Institut für Robotik, zugehörig zu Universität zu Lübeck.")
           label.control-label Name
           .form-group
             input#newcomp_input_username.form-control(name="name", ng-minlength="4", ng-model="ncomp.form.company.name", required)

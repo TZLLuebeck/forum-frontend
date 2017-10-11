@@ -15,7 +15,7 @@
         .text-blue
           u.h2 {{company.name}}
       .row
-          u.h5  - {{company.parent}}
+          u.h5(ng-show="company.parent")  - {{company.parent}}
         hr
       .row
          span {{company.description | limitTo: 180}}

@@ -116,6 +116,8 @@
           .form-group(ng-class="{'has-error' : registrationForm.logo.$invalid }" ng-hide="reg.form.user.typus == 'Student' || reg.form.contact_data.company_id")
             label.control-label Firmenlogo (max. 1MB)
               input(type="file", ngf-select, ng-model="reg.form.company.logo", name="logo", accept="image/*", ngf-max-size="1MB")
+            p.help-block.bg-danger(ng-show="registrationForm.logo.$invalid") 
+              b Das Logo muss eine Bilddatei mit einer Maximalgröße von 1MB sein.
           b * = Pflichtfeld
           hr
           .form-group
